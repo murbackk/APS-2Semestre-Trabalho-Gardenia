@@ -1,0 +1,636 @@
+/* =========================
+   TELA INICIAL - GARDENIA
+========================= */
+
+.home-screen {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+
+  background-image: url('./assets/fundo-inicial.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* IMAGEM DO URSINHO E DA PLACA */
+
+.welcome-art {
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+  object-position: center;
+
+  top: 0;
+  left: 0;
+
+  z-index: 2;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+/* BOTÃO PLAY */
+
+.play-button {
+  position: absolute;
+
+  /* Posicionamento abaixo da placa */
+  left: 62.5%;
+  top: 43.2%;
+
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  background: #00bd67;
+  color: white;
+
+  border: none;
+  border-radius: 10px;
+
+  padding: 8px 14px;
+
+  font-family: Arial, sans-serif;
+  font-size: 27px;
+  font-weight: bold;
+  text-decoration: none;
+
+  cursor: pointer;
+
+  z-index: 5;
+
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.play-button:hover {
+  background: #00a957;
+  transform: translate(-50%, -50%) scale(1.06);
+}
+
+/* ÍCONE DE PLAY */
+
+.play-icon {
+  width: 0;
+  height: 0;
+
+  border-top: 14px solid transparent;
+  border-bottom: 14px solid transparent;
+  border-left: 21px solid white;
+}
+
+/* =========================
+   RESPONSIVIDADE DA HOME
+========================= */
+
+@media (max-width: 900px) {
+
+  .home-screen {
+    background-position: center;
+  }
+
+  .welcome-art {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .play-button {
+    left: 62.5%;
+    top: 43.2%;
+
+    font-size: 20px;
+    padding: 7px 12px;
+    gap: 7px;
+  }
+
+  .play-icon {
+    border-top-width: 11px;
+    border-bottom-width: 11px;
+    border-left-width: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .home-screen {
+    background-size: cover;
+    background-position: center;
+  }
+
+  .welcome-art {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .play-button {
+    left: 62%;
+    top: 43%;
+
+    font-size: 16px;
+    padding: 6px 10px;
+    gap: 5px;
+
+    border-radius: 7px;
+  }
+
+  .play-icon {
+    border-top-width: 8px;
+    border-bottom-width: 8px;
+    border-left-width: 12px;
+  }
+}
+
+/* =========================
+   TELAS DE LOGIN E CADASTRO
+========================= */
+
+.auth-page {
+  min-height: 100vh;
+  background: #f5f4e9;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 30px;
+  position: relative;
+}
+
+.back-link {
+  position: absolute;
+  top: 30px;
+  left: 35px;
+
+  color: #536b45;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.auth-card {
+  background: #fffef8;
+
+  width: 100%;
+  max-width: 410px;
+
+  padding: 40px;
+  border-radius: 25px;
+
+  text-align: center;
+
+  box-shadow: 0 8px 30px #536b4515;
+}
+
+.auth-icon {
+  font-size: 48px;
+  margin-bottom: 5px;
+}
+
+.auth-card h1 {
+  font-family: Georgia, serif;
+  font-size: 38px;
+  color: #536b45;
+  margin-bottom: 25px;
+}
+
+.auth-card h2 {
+  color: #536b45;
+  font-size: 23px;
+  margin-bottom: 10px;
+}
+
+.auth-card > p {
+  color: #858b78;
+  font-size: 14px;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 10px;
+}
+
+.auth-card label {
+  color: #536b45;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 14px;
+
+  border: 1px solid #dce2d2;
+  border-radius: 12px;
+
+  background: #fafbf6;
+  outline: none;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.auth-card input:focus {
+  border-color: #82966b;
+}
+
+.auth-button {
+  display: block;
+  width: 100%;
+
+  padding: 15px;
+  margin-top: 12px;
+
+  background: #82966b;
+  color: white;
+
+  border: none;
+  border-radius: 25px;
+
+  text-decoration: none;
+  text-align: center;
+  font-size: 16px;
+
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.auth-button:hover {
+  background: #667d51;
+}
+
+.auth-card .switch-page {
+  margin-top: 25px;
+  margin-bottom: 0;
+}
+
+.switch-page a {
+  color: #667d51;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 28px 22px;
+  }
+
+  .back-link {
+    top: 15px;
+    left: 18px;
+  }
+}
+
+/* =========================
+   TELA PRINCIPAL DO JOGO
+========================= */
+
+.game-screen {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      to bottom,
+      #a9d5e7 0%,
+      #d7e9c4 45%,
+      #8ca96d 100%
+    );
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* BARRA SUPERIOR */
+
+.game-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  padding: 20px;
+  flex-wrap: wrap;
+  z-index: 5;
+}
+
+.game-header button,
+.resource {
+  border: none;
+  border-radius: 30px;
+  padding: 13px 22px;
+
+  background: #f5e4c8;
+  color: #885b43;
+
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.game-header button {
+  cursor: pointer;
+}
+
+.settings-button {
+  font-size: 21px !important;
+}
+
+/* ÁREA DE CULTIVO */
+
+.garden-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  min-height: 350px;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 100%,
+      #789d59 0%,
+      #a7c27d 55%,
+      transparent 75%
+    );
+}
+
+.plots-container {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.plot {
+  width: 125px;
+  height: 120px;
+
+  border: 9px solid #9b6039;
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #704328,
+      #98633d
+    );
+
+  box-shadow:
+    inset 0 5px 10px #442818,
+    0 8px 0 #70472f;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.2s;
+}
+
+.plot:hover {
+  transform: translateY(-5px);
+}
+
+.plot.selected {
+  outline: 4px solid #e9e4a5;
+}
+
+.plant {
+  font-size: 45px;
+}
+
+.selection-message {
+  position: absolute;
+  bottom: 12px;
+  background: #fff5df;
+  color: #76513d;
+  padding: 9px 18px;
+  border-radius: 20px;
+}
+
+/* PAINEL DE SEMENTES */
+
+.seed-panel {
+  position: absolute;
+  left: 20px;
+  top: 150px;
+
+  background: #f1dfc6;
+  padding: 15px;
+  border-radius: 18px;
+
+  text-align: center;
+  color: #855d43;
+}
+
+.seed-panel h3 {
+  font-size: 16px;
+}
+
+.seed-item {
+  font-size: 35px;
+  margin: 10px;
+}
+
+.seed-panel p {
+  font-size: 11px;
+}
+
+/* LOJA */
+
+.shop-panel {
+  position: absolute;
+  top: 120px;
+  right: 20px;
+  z-index: 8;
+
+  width: 190px;
+  padding: 20px;
+
+  background: #f1dfc6;
+  border-radius: 25px;
+
+  color: #855d43;
+  text-align: center;
+
+  box-shadow: 0 5px 20px #0002;
+}
+
+.shop-panel h2 {
+  font-size: 19px;
+  margin-bottom: 15px;
+}
+
+.shop-item {
+  background: #fff3df;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 15px;
+}
+
+.shop-item span {
+  font-size: 38px;
+}
+
+.shop-item p {
+  font-size: 13px;
+}
+
+.shop-item strong {
+  display: block;
+  margin-top: 8px;
+}
+
+.shop-panel button {
+  border: none;
+  background: #82966b;
+  color: white;
+  border-radius: 20px;
+  padding: 9px;
+  cursor: pointer;
+}
+
+/* MENU DE JARDINS */
+
+.garden-menu {
+  position: absolute;
+  top: 90px;
+  left: 20px;
+  z-index: 8;
+
+  background: #f1dfc6;
+  border-radius: 20px;
+  padding: 20px;
+
+  color: #855d43;
+}
+
+.garden-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+}
+
+.garden-option span {
+  font-size: 40px;
+}
+
+.garden-option.locked {
+  opacity: 0.6;
+}
+
+/* FERRAMENTAS */
+
+.game-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  padding: 15px;
+  margin: 0 auto 15px;
+
+  background: #f1dfc6;
+  border-radius: 30px;
+
+  z-index: 5;
+}
+
+.tool {
+  border: none;
+  background: transparent;
+  color: #855d43;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 5px;
+  padding: 10px;
+
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.tool span {
+  font-size: 30px;
+}
+
+.tool small {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.tool.active {
+  background: #d6c29f;
+}
+
+.exit-game {
+  position: absolute;
+  bottom: 25px;
+  right: 20px;
+
+  color: #fff;
+  background: #82966b;
+  padding: 10px 18px;
+
+  border-radius: 20px;
+  text-decoration: none;
+  z-index: 6;
+}
+
+/* RESPONSIVIDADE DO JOGO */
+
+@media (max-width: 650px) {
+  .plots-container {
+    gap: 15px;
+  }
+
+  .plot {
+    width: 95px;
+    height: 95px;
+  }
+
+  .seed-panel {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin: 10px auto;
+  }
+
+  .game-toolbar {
+    flex-wrap: wrap;
+    width: 95%;
+    gap: 5px;
+  }
+
+  .tool {
+    padding: 7px;
+  }
+
+  .shop-panel {
+    right: 10px;
+    width: 160px;
+  }
+}

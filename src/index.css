@@ -1,0 +1,104 @@
+.home {
+  min-height: 100vh;
+  width: 100%;
+  background: #f5f4e9;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  overflow: hidden;
+}
+
+.welcome {
+  text-align: center;
+  z-index: 2;
+  padding: 30px;
+}
+
+.logo-icon {
+  font-size: 75px;
+  margin-bottom: 10px;
+}
+
+.welcome h1 {
+  font-family: Georgia, serif;
+  font-size: 76px;
+  color: #536b45;
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+.subtitle {
+  color: #78836b;
+  font-size: 17px;
+  margin-top: 12px;
+  margin-bottom: 45px;
+}
+
+.play-button {
+  background: #82966b;
+  color: white;
+
+  border: none;
+  border-radius: 30px;
+
+  padding: 17px 65px;
+  font-size: 20px;
+
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 5px 15px #536b4530;
+}
+
+.play-button:hover {
+  background: #667d51;
+  transform: translateY(-3px);
+}
+
+.play-button span {
+  margin-left: 8px;
+}
+
+.footer-text {
+  color: #9a9e88;
+  font-size: 13px;
+  margin-top: 55px;
+}
+
+.garden-decoration {
+  position: absolute;
+  color: #b7c69b;
+  opacity: 0.5;
+}
+
+.decoration-one {
+  font-size: 150px;
+  top: 10%;
+  left: 10%;
+}
+
+.decoration-two {
+  font-size: 180px;
+  bottom: 5%;
+  right: 8%;
+}
+
+@media (max-width: 600px) {
+  .welcome h1 {
+    font-size: 52px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .decoration-one {
+    left: -30px;
+  }
+
+  .decoration-two {
+    right: -40px;
+  }
+}
