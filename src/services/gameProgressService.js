@@ -23,6 +23,7 @@ export async function saveGameProgress(userId, progress) {
         coins: progress.coins,
         inventory: progress.inventory,
         plots: progress.plots,
+        dream_plots: progress.dreamPlots,
         dream_garden_unlocked:
           progress.dreamGardenUnlocked ?? false,
         updated_at: new Date().toISOString(),

@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import placaLogo from '../assets/placa-logo.png'
 import { useAuth } from '../context/AuthContext'
 import {
   loadGameProgress,
@@ -39,10 +40,21 @@ export default function Garden() {
   const [hearts, setHearts] = useState(INITIAL_HEARTS)
   const [coins, setCoins] = useState(INITIAL_COINS)
   const [inventory, setInventory] = useState(INITIAL_INVENTORY)
+
+  // Cada jardim possui seus próprios canteiros
   const [plots, setPlots] = useState(INITIAL_PLOTS)
+  const [dreamPlots, setDreamPlots] = useState(INITIAL_PLOTS)
 
   const [dreamGardenUnlocked, setDreamGardenUnlocked] =
     useState(false)
+
+  // Jardim que está sendo exibido
+  const [currentGarden, setCurrentGarden] = useState('garden')
+
+  const activePlots =
+    currentGarden === 'dream' ? dreamPlots : plots
+
+  const activeLimit = dreamGardenUnlocked ? 2500 : 1000
 
   const [selectedSeed, setSelectedSeed] = useState('amarela')
   const [selectedTool, setSelectedTool] = useState('plant')
@@ -57,6 +69,15 @@ export default function Garden() {
   const [progressLoading, setProgressLoading] = useState(true)
   const [loadedUserId, setLoadedUserId] = useState(null)
   const [resetting, setResetting] = useState(false)
+
+  // Atualizar os canteiros do jardim que está aberto
+  function updateActivePlots(updater) {
+    if (currentGarden === 'dream') {
+      setDreamPlots(updater)
+    } else {
+      setPlots(updater)
+    }
+  }
 
   // Carregar o progresso do jogador
   useEffect(() => {
@@ -82,6 +103,8 @@ export default function Garden() {
           setCoins(data.coins)
           setInventory(data.inventory)
           setPlots(data.plots)
+          setDreamPlots(data.dream_plots || INITIAL_PLOTS)
+
           setDreamGardenUnlocked(
             data.dream_garden_unlocked ?? false
           )
@@ -91,6 +114,7 @@ export default function Garden() {
             coins: INITIAL_COINS,
             inventory: INITIAL_INVENTORY,
             plots: INITIAL_PLOTS,
+            dreamPlots: INITIAL_PLOTS,
             dreamGardenUnlocked: false,
           }
 
@@ -102,9 +126,11 @@ export default function Garden() {
           setCoins(INITIAL_COINS)
           setInventory(INITIAL_INVENTORY)
           setPlots(INITIAL_PLOTS)
+          setDreamPlots(INITIAL_PLOTS)
           setDreamGardenUnlocked(false)
         }
 
+        setCurrentGarden('garden')
         setLoadedUserId(user.id)
       } catch (error) {
         console.error('Erro ao carregar progresso:', error)
@@ -139,6 +165,7 @@ export default function Garden() {
           coins,
           inventory,
           plots,
+          dreamPlots,
           dreamGardenUnlocked,
         })
       } catch (error) {
@@ -152,6 +179,7 @@ export default function Garden() {
     coins,
     inventory,
     plots,
+    dreamPlots,
     dreamGardenUnlocked,
     user?.id,
     loadedUserId,
@@ -168,13 +196,15 @@ export default function Garden() {
       return
     }
 
+    // Desbloqueia o novo jardim e inicia a nova etapa
     setDreamGardenUnlocked(true)
+    setHearts(0)
 
     setModal({
       type: 'success',
       title: 'Dream Garden desbloqueado!',
       message:
-        'Parabéns! Você alcançou 1.000 corações e desbloqueou um novo jardim! Seu próximo sonho começa aqui! 🌸',
+        'Parabéns! Você alcançou 1.000 corações! O Dream Garden foi desbloqueado. Seus corações foram zerados e agora você pode conquistar até 2.500! 🌸',
     })
   }, [
     hearts,
@@ -184,7 +214,30 @@ export default function Garden() {
   ])
 
   function addHearts(points) {
-    setHearts((previous) => Math.min(1000, previous + points))
+    setHearts((previous) =>
+      Math.min(activeLimit, previous + points)
+    )
+  }
+
+  // Alternar entre os jardins
+  function selectGarden(garden) {
+    if (garden === 'dream' && !dreamGardenUnlocked) {
+      setMessage('O Dream Garden ainda está bloqueado! 🔒')
+      return
+    }
+
+    setCurrentGarden(garden)
+    setSelectedPlot(null)
+    setGardenOpen(false)
+    setShopOpen(false)
+
+    setSelectedTool('plant')
+
+    setMessage(
+      garden === 'dream'
+        ? 'Bem-vindo ao Dream Garden! 🌸'
+        : 'Bem-vindo de volta ao Jardim inicial! 🌻'
+    )
   }
 
   // Comprar sementes
@@ -206,7 +259,7 @@ export default function Garden() {
 
   // Plantar, regar, colher ou remover
   function handlePlotClick(plotId) {
-    const plot = plots.find((item) => item.id === plotId)
+    const plot = activePlots.find((item) => item.id === plotId)
 
     if (!plot) return
 
@@ -222,17 +275,17 @@ export default function Garden() {
         return
       }
 
-      setPlots((previous) =>
+      updateActivePlots((previous) =>
         previous.map((item) =>
           item.id === plotId
             ? {
-                ...item,
-                plant: {
-                  type: selectedSeed,
-                  stage: 'seed',
-                  watered: false,
-                },
-              }
+              ...item,
+              plant: {
+                type: selectedSeed,
+                stage: 'seed',
+                watered: false,
+              },
+            }
             : item
         )
       )
@@ -262,17 +315,17 @@ export default function Garden() {
       const nextStage =
         plot.plant.stage === 'seed' ? 'sprout' : 'grown'
 
-      setPlots((previous) =>
+      updateActivePlots((previous) =>
         previous.map((item) =>
           item.id === plotId
             ? {
-                ...item,
-                plant: {
-                  ...item.plant,
-                  stage: nextStage,
-                  watered: true,
-                },
-              }
+              ...item,
+              plant: {
+                ...item.plant,
+                stage: nextStage,
+                watered: true,
+              },
+            }
             : item
         )
       )
@@ -295,7 +348,7 @@ export default function Garden() {
         return
       }
 
-      setPlots((previous) =>
+      updateActivePlots((previous) =>
         previous.map((item) =>
           item.id === plotId
             ? { ...item, plant: null }
@@ -316,7 +369,7 @@ export default function Garden() {
         return
       }
 
-      setPlots((previous) =>
+      updateActivePlots((previous) =>
         previous.map((item) =>
           item.id === plotId
             ? { ...item, plant: null }
@@ -368,6 +421,7 @@ export default function Garden() {
       coins: INITIAL_COINS,
       inventory: INITIAL_INVENTORY,
       plots: INITIAL_PLOTS,
+      dreamPlots: INITIAL_PLOTS,
       dreamGardenUnlocked: false,
     }
 
@@ -378,8 +432,10 @@ export default function Garden() {
       setCoins(INITIAL_COINS)
       setInventory(INITIAL_INVENTORY)
       setPlots(INITIAL_PLOTS)
+      setDreamPlots(INITIAL_PLOTS)
       setDreamGardenUnlocked(false)
 
+      setCurrentGarden('garden')
       setSelectedSeed('amarela')
       setSelectedTool('plant')
       setSelectedPlot(null)
@@ -418,14 +474,17 @@ export default function Garden() {
   }
 
   return (
-    <main className="garden-screen">
+    <main
+      className={`garden-screen ${currentGarden === 'dream' ? 'dream-garden-screen' : ''
+        }`}
+    >
       <header className="garden-header">
-        <Link to="/" className="garden-logo">
-          🌱 Gardenia
+        <Link to="/" className="garden-logo" aria-label="Gardenia - página inicial">
+          <img src={placaLogo} alt="Gardenia" />
         </Link>
 
         <div className="resources">
-          <span>❤️ {hearts}/1000</span>
+          <span>❤️ {hearts}/{activeLimit}</span>
           <span>💰 {coins}</span>
         </div>
 
@@ -441,8 +500,17 @@ export default function Garden() {
       <section className="garden-content">
         <div className="garden-top">
           <div>
-            <h1>Meu Jardim</h1>
-            <p>Cuide das suas plantas e faça seu jardim florescer!</p>
+            <h1>
+              {currentGarden === 'dream'
+                ? 'Dream Garden'
+                : 'Meu Jardim'}
+            </h1>
+
+            <p>
+              {currentGarden === 'dream'
+                ? 'Cultive seus sonhos e faça este jardim florescer!'
+                : 'Cuide das suas plantas e faça seu jardim florescer!'}
+            </p>
           </div>
 
           <button
@@ -453,48 +521,58 @@ export default function Garden() {
           </button>
         </div>
 
+
         {gardenOpen && (
           <div className="garden-menu">
-            <div className="garden-option active">
+            <div
+              className={`garden-option ${currentGarden === 'garden' ? 'active' : ''
+                }`}
+              role="button"
+              tabIndex={0}
+              onClick={() => selectGarden('garden')}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter') selectGarden('garden')
+              }}
+              style={{ cursor: 'pointer' }}
+            >
               <span>🌻</span>
               <strong>Jardim inicial</strong>
               <small>Desbloqueado</small>
             </div>
 
             <div
-              className={`garden-option ${
-                dreamGardenUnlocked ? 'unlocked' : 'locked'
-              }`}
+              className={`garden-option ${currentGarden === 'dream' ? 'active' : ''
+                } ${!dreamGardenUnlocked ? 'locked' : ''}`}
+              role="button"
+              tabIndex={dreamGardenUnlocked ? 0 : -1}
+              onClick={() => selectGarden('dream')}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter') selectGarden('dream')
+              }}
+              style={{
+                cursor: dreamGardenUnlocked ? 'pointer' : 'not-allowed',
+              }}
             >
               <span>🌸</span>
               <strong>Dream Garden</strong>
-
               <small>
-                {dreamGardenUnlocked
-                  ? 'Desbloqueado! ✨'
-                  : '🔒 1000 ❤️'}
+                {dreamGardenUnlocked ? 'Desbloqueado' : '🔒 1000 ❤️'}
               </small>
-
-              {dreamGardenUnlocked && (
-                <span className="unlocked-label">
-                  Disponível
-                </span>
-              )}
             </div>
           </div>
         )}
+
 
         <div className="garden-message">
           {message}
         </div>
 
         <section className="plots-container">
-          {plots.map((plot) => (
+          {activePlots.map((plot) => (
             <button
               key={plot.id}
-              className={`plot ${
-                selectedPlot === plot.id ? 'selected' : ''
-              }`}
+              className={`plot ${selectedPlot === plot.id ? 'selected' : ''
+                }`}
               onClick={() => {
                 setSelectedPlot(plot.id)
                 handlePlotClick(plot.id)
@@ -509,8 +587,8 @@ export default function Garden() {
                   {plot.plant.stage === 'seed'
                     ? 'Semente'
                     : plot.plant.stage === 'sprout'
-                    ? 'Crescendo'
-                    : 'Adulta'}
+                      ? 'Crescendo'
+                      : 'Adulta'}
                 </small>
               )}
             </button>
