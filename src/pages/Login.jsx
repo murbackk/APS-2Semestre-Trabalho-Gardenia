@@ -1,7 +1,11 @@
+
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { useAuth } from '../context/AuthContext'
+
+import fundoLogin from '../assets/fundo-login.png'
+import placaLogin from '../assets/placa-login.png'
 
 const loginSchema = z.object({
   email: z.string().email('Digite um e-mail válido.'),
@@ -44,7 +48,7 @@ function Login() {
 
     try {
       await login(email, password)
-      navigate('/perfil')
+      navigate('/jogo')
     } catch (error) {
       setMessage('E-mail ou senha incorretos.')
     } finally {
@@ -53,71 +57,114 @@ function Login() {
   }
 
   return (
-    <main className="auth-page">
-      <Link to="/" className="back-link">
-        ← Voltar
-      </Link>
+    <main
+      className="login-scene"
+      style={{ backgroundImage: `url(${fundoLogin})` }}
+    >
 
-      <section className="auth-card">
-        <div className="auth-icon">🌱</div>
+      <section className="login-container">
 
-        <h1>Gardenia</h1>
-        <h2>Bem-vindo!</h2>
+        {/* Placa Gardenia */}
+        <img
+          src={placaLogin}
+          alt="Gardenia"
+          className="login-sign"
+        />
 
-        <p>
-          Entre na sua conta para
-          <br />
-          cuidar do seu jardim.
-        </p>
+        {/* Formulário */}
+        <div className="login-content">
 
-        <form onSubmit={handleSubmit}>
-          <label>E-mail</label>
+          <h2>Bem-vindo de volta!</h2>
 
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Digite seu e-mail"
-          />
+          <div className="login-divider">
+            <span></span>
+            <span className="divider-leaf">◆</span>
+            <span></span>
+          </div>
 
-          {errors.email && (
-            <small className="form-error">
-              {errors.email}
-            </small>
-          )}
+          <form onSubmit={handleSubmit}>
 
-          <label>Senha</label>
+            {/* E-mail */}
+            <div className="login-input-group">
+              <span className="input-icon">✉</span>
 
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Digite sua senha"
-          />
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="E-mail"
+                aria-label="E-mail"
+              />
+            </div>
 
-          {errors.password && (
-            <small className="form-error">
-              {errors.password}
-            </small>
-          )}
+            {errors.email && (
+              <small className="login-error">
+                {errors.email}
+              </small>
+            )}
 
-          {message && (
-            <p className="form-error">{message}</p>
-          )}
+            {/* Senha */}
+            <div className="login-input-group">
+              <span className="input-icon">🔒</span>
 
-          <button
-            type="submit"
-            className="auth-button"
-            disabled={loading}
-          >
-            {loading ? 'Entrando...' : 'Entrar'}
-          </button>
-        </form>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Senha"
+                aria-label="Senha"
+              />
+            </div>
 
-        <p className="switch-page">
-          Ainda não tem conta?
-          <Link to="/cadastro"> Criar conta</Link>
-        </p>
+            {errors.password && (
+              <small className="login-error">
+                {errors.password}
+              </small>
+            )}
+
+            {/* Recuperação de senha */}
+            <div className="forgot-password">
+              <Link to="/recuperar-senha">
+                Esqueceu sua senha?
+              </Link>
+            </div>
+
+            {message && (
+              <p className="login-error">
+                {message}
+              </p>
+            )}
+
+            {/* Entrar */}
+            <button
+              type="submit"
+              className="login-button"
+              disabled={loading}
+            >
+              <span>🌱</span>
+              {loading ? 'Entrando...' : 'Entrar'}
+            </button>
+
+            {/* Separador */}
+            <div className="login-or">
+              <span></span>
+              ou
+              <span></span>
+            </div>
+
+            {/* Criar conta */}
+            <Link
+              to="/cadastro"
+              className="register-button"
+            >
+              <span>♟</span>
+              Criar conta
+            </Link>
+
+          </form>
+
+        </div>
+
       </section>
     </main>
   )

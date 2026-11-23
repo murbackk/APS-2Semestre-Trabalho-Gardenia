@@ -8,8 +8,15 @@ import {
   saveGameProgress,
 } from '../services/gameProgressService'
 
+import plantarImg from '../assets/plantar.png'
+import regadorImg from '../assets/regador.png'
+import colherImg from '../assets/colher.png'
+import tesouraImg from '../assets/tesoura.png'
+import seedImg from '../assets/plantar.png'
+
 const INITIAL_HEARTS = 300
 const INITIAL_COINS = 500
+const ACTION_TIME = 60 * 1000
 
 const INITIAL_INVENTORY = {
   amarela: 2,
@@ -34,21 +41,33 @@ const SEEDS = {
   },
 }
 
+function preparePlots(savedPlots) {
+  return (savedPlots || INITIAL_PLOTS).map((plot) => ({
+    ...plot,
+    plant: plot.plant
+      ? {
+          ...plot.plant,
+          actionStartedAt:
+            plot.plant.actionStartedAt || Date.now(),
+        }
+      : null,
+  }))
+}
+
 export default function Garden() {
   const { user, authLoading } = useAuth()
 
   const [hearts, setHearts] = useState(INITIAL_HEARTS)
   const [coins, setCoins] = useState(INITIAL_COINS)
+  const [deadPlants, setDeadPlants] = useState(0)
   const [inventory, setInventory] = useState(INITIAL_INVENTORY)
 
-  // Cada jardim possui seus próprios canteiros
   const [plots, setPlots] = useState(INITIAL_PLOTS)
   const [dreamPlots, setDreamPlots] = useState(INITIAL_PLOTS)
 
   const [dreamGardenUnlocked, setDreamGardenUnlocked] =
     useState(false)
 
-  // Jardim que está sendo exibido
   const [currentGarden, setCurrentGarden] = useState('garden')
 
   const activePlots =
@@ -69,6 +88,17 @@ export default function Garden() {
   const [progressLoading, setProgressLoading] = useState(true)
   const [loadedUserId, setLoadedUserId] = useState(null)
   const [resetting, setResetting] = useState(false)
+
+  // Atualização visual independente para as barras de tempo
+  const [timerNow, setTimerNow] = useState(Date.now())
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimerNow(Date.now())
+    }, 250)
+
+    return () => clearInterval(interval)
+  }, [])
 
   // Atualizar os canteiros do jardim que está aberto
   function updateActivePlots(updater) {
@@ -101,9 +131,12 @@ export default function Garden() {
         if (data) {
           setHearts(data.hearts)
           setCoins(data.coins)
+          setDeadPlants(data.dead_plants ?? 0)
           setInventory(data.inventory)
-          setPlots(data.plots)
-          setDreamPlots(data.dream_plots || INITIAL_PLOTS)
+          setPlots(preparePlots(data.plots))
+          setDreamPlots(
+            preparePlots(data.dream_plots || INITIAL_PLOTS)
+          )
 
           setDreamGardenUnlocked(
             data.dream_garden_unlocked ?? false
@@ -112,6 +145,7 @@ export default function Garden() {
           const initialProgress = {
             hearts: INITIAL_HEARTS,
             coins: INITIAL_COINS,
+            deadPlants: 0,
             inventory: INITIAL_INVENTORY,
             plots: INITIAL_PLOTS,
             dreamPlots: INITIAL_PLOTS,
@@ -124,6 +158,7 @@ export default function Garden() {
 
           setHearts(INITIAL_HEARTS)
           setCoins(INITIAL_COINS)
+          setDeadPlants(0)
           setInventory(INITIAL_INVENTORY)
           setPlots(INITIAL_PLOTS)
           setDreamPlots(INITIAL_PLOTS)
@@ -163,6 +198,7 @@ export default function Garden() {
         await saveGameProgress(user.id, {
           hearts,
           coins,
+          deadPlants,
           inventory,
           plots,
           dreamPlots,
@@ -177,6 +213,7 @@ export default function Garden() {
   }, [
     hearts,
     coins,
+    deadPlants,
     inventory,
     plots,
     dreamPlots,
@@ -184,6 +221,72 @@ export default function Garden() {
     user?.id,
     loadedUserId,
   ])
+
+  // Verificar se alguma planta ultrapassou os 60 segundos
+  useEffect(() => {
+    const now = timerNow
+
+    const expiredPlots = plots.filter(
+      (plot) =>
+        plot.plant &&
+        now - (plot.plant.actionStartedAt || now) >= ACTION_TIME
+    )
+
+    const expiredDreamPlots = dreamPlots.filter(
+      (plot) =>
+        plot.plant &&
+        now - (plot.plant.actionStartedAt || now) >= ACTION_TIME
+    )
+
+    const totalDeaths =
+      expiredPlots.length + expiredDreamPlots.length
+
+    if (totalDeaths === 0) return
+
+    const expiredIds = new Set(
+      expiredPlots.map((plot) => plot.id)
+    )
+
+    const expiredDreamIds = new Set(
+      expiredDreamPlots.map((plot) => plot.id)
+    )
+
+    setPlots((previous) =>
+      previous.map((plot) =>
+        expiredIds.has(plot.id) &&
+        plot.plant &&
+        now - (plot.plant.actionStartedAt || now) >= ACTION_TIME
+          ? { ...plot, plant: null }
+          : plot
+      )
+    )
+
+    setDreamPlots((previous) =>
+      previous.map((plot) =>
+        expiredDreamIds.has(plot.id) &&
+        plot.plant &&
+        now - (plot.plant.actionStartedAt || now) >= ACTION_TIME
+          ? { ...plot, plant: null }
+          : plot
+      )
+    )
+
+    setHearts((previous) =>
+      Math.max(0, previous - totalDeaths * 10)
+    )
+
+    setCoins((previous) =>
+      Math.max(0, previous - totalDeaths * 20)
+    )
+
+    setDeadPlants((previous) => previous + totalDeaths)
+
+    setMessage(
+      totalDeaths === 1
+        ? 'Uma planta morreu por falta de cuidados! -10 ❤️ e -20 moedas.'
+        : `${totalDeaths} plantas morreram por falta de cuidados! -${totalDeaths * 10} ❤️ e -${totalDeaths * 20} moedas.`
+    )
+  }, [timerNow, plots, dreamPlots])
 
   // Desbloquear o Dream Garden ao atingir 1000 corações
   useEffect(() => {
@@ -196,7 +299,6 @@ export default function Garden() {
       return
     }
 
-    // Desbloqueia o novo jardim e inicia a nova etapa
     setDreamGardenUnlocked(true)
     setHearts(0)
 
@@ -230,7 +332,6 @@ export default function Garden() {
     setSelectedPlot(null)
     setGardenOpen(false)
     setShopOpen(false)
-
     setSelectedTool('plant')
 
     setMessage(
@@ -279,13 +380,14 @@ export default function Garden() {
         previous.map((item) =>
           item.id === plotId
             ? {
-              ...item,
-              plant: {
-                type: selectedSeed,
-                stage: 'seed',
-                watered: false,
-              },
-            }
+                ...item,
+                plant: {
+                  type: selectedSeed,
+                  stage: 'seed',
+                  watered: false,
+                  actionStartedAt: Date.now(),
+                },
+              }
             : item
         )
       )
@@ -319,13 +421,14 @@ export default function Garden() {
         previous.map((item) =>
           item.id === plotId
             ? {
-              ...item,
-              plant: {
-                ...item.plant,
-                stage: nextStage,
-                watered: true,
-              },
-            }
+                ...item,
+                plant: {
+                  ...item.plant,
+                  stage: nextStage,
+                  watered: true,
+                  actionStartedAt: Date.now(),
+                },
+              }
             : item
         )
       )
@@ -419,6 +522,7 @@ export default function Garden() {
     const initialProgress = {
       hearts: INITIAL_HEARTS,
       coins: INITIAL_COINS,
+      deadPlants: 0,
       inventory: INITIAL_INVENTORY,
       plots: INITIAL_PLOTS,
       dreamPlots: INITIAL_PLOTS,
@@ -430,6 +534,7 @@ export default function Garden() {
 
       setHearts(INITIAL_HEARTS)
       setCoins(INITIAL_COINS)
+      setDeadPlants(0)
       setInventory(INITIAL_INVENTORY)
       setPlots(INITIAL_PLOTS)
       setDreamPlots(INITIAL_PLOTS)
@@ -465,6 +570,33 @@ export default function Garden() {
     }
   }
 
+  // Calcular o tempo restante de cada planta
+  function getTimerInfo(plant) {
+    if (!plant) return null
+
+    const startedAt = plant.actionStartedAt || timerNow
+
+    const remaining = Math.max(
+      0,
+      ACTION_TIME - (timerNow - startedAt)
+    )
+
+    const percentage = (remaining / ACTION_TIME) * 100
+
+    let color = '#55a85b'
+
+    if (percentage <= 25) {
+      color = '#d94c43'
+    } else if (percentage <= 50) {
+      color = '#e4b942'
+    }
+
+    return {
+      percentage,
+      color,
+    }
+  }
+
   if (authLoading || progressLoading) {
     return (
       <main className="garden-loading">
@@ -475,18 +607,30 @@ export default function Garden() {
 
   return (
     <main
-      className={`garden-screen ${currentGarden === 'dream' ? 'dream-garden-screen' : ''
-        }`}
+      className={`garden-screen ${
+        currentGarden === 'dream' ? 'dream-garden-screen' : ''
+      }`}
     >
       <header className="garden-header">
-        <Link to="/" className="garden-logo" aria-label="Gardenia - página inicial">
+        <Link
+          to="/"
+          className="garden-logo"
+          aria-label="Gardenia - página inicial"
+        >
           <img src={placaLogo} alt="Gardenia" />
         </Link>
 
         <div className="resources">
           <span>❤️ {hearts}/{activeLimit}</span>
           <span>💰 {coins}</span>
+          <span className="dead-plants-counter">
+            🥀 {deadPlants}
+          </span>
         </div>
+
+        <Link to="/perfil" className="profile-button">
+          👤 Perfil
+        </Link>
 
         <button
           className="reset-button"
@@ -521,12 +665,12 @@ export default function Garden() {
           </button>
         </div>
 
-
         {gardenOpen && (
           <div className="garden-menu">
             <div
-              className={`garden-option ${currentGarden === 'garden' ? 'active' : ''
-                }`}
+              className={`garden-option ${
+                currentGarden === 'garden' ? 'active' : ''
+              }`}
               role="button"
               tabIndex={0}
               onClick={() => selectGarden('garden')}
@@ -541,8 +685,9 @@ export default function Garden() {
             </div>
 
             <div
-              className={`garden-option ${currentGarden === 'dream' ? 'active' : ''
-                } ${!dreamGardenUnlocked ? 'locked' : ''}`}
+              className={`garden-option ${
+                currentGarden === 'dream' ? 'active' : ''
+              } ${!dreamGardenUnlocked ? 'locked' : ''}`}
               role="button"
               tabIndex={dreamGardenUnlocked ? 0 : -1}
               onClick={() => selectGarden('dream')}
@@ -562,37 +707,56 @@ export default function Garden() {
           </div>
         )}
 
-
         <div className="garden-message">
           {message}
         </div>
 
         <section className="plots-container">
-          {activePlots.map((plot) => (
-            <button
-              key={plot.id}
-              className={`plot ${selectedPlot === plot.id ? 'selected' : ''
-                }`}
-              onClick={() => {
-                setSelectedPlot(plot.id)
-                handlePlotClick(plot.id)
-              }}
-            >
-              <span className="plant-icon">
-                {getPlantIcon(plot.plant)}
-              </span>
+          {activePlots.map((plot) => {
+            const timer = getTimerInfo(plot.plant)
 
-              {plot.plant && (
-                <small>
-                  {plot.plant.stage === 'seed'
-                    ? 'Semente'
-                    : plot.plant.stage === 'sprout'
-                      ? 'Crescendo'
-                      : 'Adulta'}
-                </small>
-              )}
-            </button>
-          ))}
+            return (
+              <div className="plot-wrapper" key={plot.id}>
+                <button
+                  className={`plot ${
+                    selectedPlot === plot.id ? 'selected' : ''
+                  }`}
+                  onClick={() => {
+                    setSelectedPlot(plot.id)
+                    handlePlotClick(plot.id)
+                  }}
+                >
+                  <span className="plant-icon">
+                    {getPlantIcon(plot.plant)}
+                  </span>
+
+                  {plot.plant && (
+                    <small>
+                      {plot.plant.stage === 'seed'
+                        ? 'Semente'
+                        : plot.plant.stage === 'sprout'
+                          ? 'Crescendo'
+                          : 'Adulta'}
+                    </small>
+                  )}
+                </button>
+
+                {timer && (
+                  <div className="plant-timer">
+                    <div className="plant-timer-track">
+                      <div
+                        className="plant-timer-fill"
+                        style={{
+                          width: `${timer.percentage}%`,
+                          backgroundColor: timer.color,
+                        }}
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+            )
+          })}
         </section>
 
         <section className="game-panel">

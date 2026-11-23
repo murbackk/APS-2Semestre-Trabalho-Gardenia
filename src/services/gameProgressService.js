@@ -21,6 +21,7 @@ export async function saveGameProgress(userId, progress) {
         user_id: userId,
         hearts: progress.hearts,
         coins: progress.coins,
+        dead_plants: progress.deadPlants ?? 0,
         inventory: progress.inventory,
         plots: progress.plots,
         dream_plots: progress.dreamPlots,

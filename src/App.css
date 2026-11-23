@@ -314,281 +314,391 @@
 
 ========================= */
 
+/* ================================
+   LOGIN - GARDENIA
+================================ */
 
-
-.auth-page {
-
+.login-scene {
   min-height: 100vh;
+  width: 100%;
 
-  background: #f5f4e9;
-
-
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
   display: flex;
-
   justify-content: center;
-
   align-items: center;
 
+  overflow: hidden;
+  position: relative;
+  padding: 20px;
+}
 
+/* Container da placa */
 
-  padding: 30px;
-
+.login-container {
   position: relative;
 
-}
-
-
-
-.back-link {
-
-  position: absolute;
-
-  top: 30px;
-
-  left: 35px;
-
-
-
-  color: #536b45;
-
-  text-decoration: none;
-
-  font-size: 15px;
-
-}
-
-
-
-.auth-card {
-
-  background: #fffef8;
-
-
-
-  width: 100%;
-
-  max-width: 410px;
-
-
-
-  padding: 40px;
-
-  border-radius: 25px;
-
-
-
-  text-align: center;
-
-
-
-  box-shadow: 0 8px 30px #536b4515;
-
-}
-
-
-
-.auth-icon {
-
-  font-size: 48px;
-
-  margin-bottom: 5px;
-
-}
-
-
-
-.auth-card h1 {
-
-  font-family: Georgia, serif;
-
-  font-size: 38px;
-
-  color: #536b45;
-
-  margin-bottom: 25px;
-
-}
-
-
-
-.auth-card h2 {
-
-  color: #536b45;
-
-  font-size: 23px;
-
-  margin-bottom: 10px;
-
-}
-
-
-
-.auth-card > p {
-
-  color: #858b78;
-
-  font-size: 14px;
-
-  margin-bottom: 25px;
-
-  line-height: 1.6;
-
-}
-
-
-
-.auth-card form {
+  width: min(52vw, 780px);
+  aspect-ratio: 3 / 2;
 
   display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+/* Imagem da placa */
+
+.login-sign {
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Conteúdo do formulário */
+
+.login-content {
+  position: absolute;
+
+  z-index: 2;
+
+  top: 35%;
+  left: 19%;
+
+  width: 62%;
+  height: 60%;
+
+  display: flex;
   flex-direction: column;
-
-  text-align: left;
-
-  gap: 10px;
-
-}
-
-
-
-.auth-card label {
-
-  color: #536b45;
-
-  font-size: 14px;
-
-  font-weight: bold;
-
-}
-
-
-
-.auth-card input {
-
-  width: 100%;
-
-  padding: 14px;
-
-
-
-  border: 1px solid #dce2d2;
-
-  border-radius: 12px;
-
-
-
-  background: #fafbf6;
-
-  outline: none;
-
-  font-size: 14px;
-
-  margin-bottom: 10px;
-
-}
-
-
-
-.auth-card input:focus {
-
-  border-color: #82966b;
-
-}
-
-
-
-.auth-button {
-
-  display: block;
-
-  width: 100%;
-
-
-
-  padding: 15px;
-
-  margin-top: 12px;
-
-
-
-  background: #82966b;
-
-  color: white;
-
-
-
-  border: none;
-
-  border-radius: 25px;
-
-
-
-  text-decoration: none;
+  align-items: center;
 
   text-align: center;
+}
 
+/* Título */
+
+.login-content h2 {
+  font-family: Georgia, serif;
+
+  font-size: clamp(17px, 2.1vw, 29px);
+
+  color: #75401f;
+
+  margin: 0 0 10px;
+}
+
+/* Divisor decorativo */
+
+.login-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  width: 55%;
+  margin-bottom: 18px;
+}
+
+.login-divider span:not(.divider-leaf) {
+  height: 2px;
+  flex: 1;
+
+  background: #d5a36c;
+}
+
+.divider-leaf {
+  color: #729347;
+  font-size: 16px;
+}
+
+/* Formulário */
+
+.login-content form {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+/* Campos */
+
+.login-input-group {
+  width: 100%;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+
+  border: 2px solid #dfbd98;
+  border-radius: 20px;
+
+  background: #fff6e5;
+
+  padding: 0 16px;
+
+  transition: 0.2s;
+}
+
+.login-input-group:focus-within {
+  border-color: #a8794d;
+}
+
+.input-icon {
+  font-size: 20px;
+  color: #92572e;
+
+  margin-right: 14px;
+}
+
+.login-input-group input {
+  width: 100%;
+  height: 100%;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: #704325;
   font-size: 16px;
 
+  font-family: inherit;
+}
 
+.login-input-group input::placeholder {
+  color: #b18c6b;
+}
+
+/* Esqueceu a senha */
+
+.forgot-password {
+  display: flex;
+  justify-content: flex-end;
+
+  margin-top: -3px;
+}
+
+.forgot-password a {
+  color: #58753d;
+
+  font-size: 13px;
+  font-weight: bold;
+
+  text-decoration: none;
+}
+
+/* Botão entrar */
+
+.login-button {
+  width: 80%;
+  align-self: center;
+
+  padding: 13px;
+
+  border: 2px solid #607d37;
+  border-radius: 30px;
+
+  background: #789c42;
+  color: white;
+
+  font-size: 18px;
+  font-weight: bold;
 
   cursor: pointer;
 
   transition: 0.3s;
-
 }
 
-
-
-.auth-button:hover {
-
-  background: #667d51;
-
+.login-button span {
+  margin-right: 10px;
 }
 
-
-
-.auth-card .switch-page {
-
-  margin-top: 25px;
-
-  margin-bottom: 0;
-
+.login-button:hover {
+  background: #628436;
+  transform: scale(1.02);
 }
 
+.login-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
 
+/* Separador OU */
 
-.switch-page a {
+.login-or {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  color: #667d51;
+  gap: 12px;
 
+  color: #b28a64;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.login-or span {
+  height: 2px;
+  flex: 1;
+
+  background: #e6c69e;
+}
+
+/* Criar conta */
+
+.register-button {
+  width: 80%;
+  align-self: center;
+
+  padding: 12px;
+
+  border: 2px solid #87451e;
+  border-radius: 30px;
+
+  color: #78401e;
+
+  font-size: 16px;
   font-weight: bold;
 
   text-decoration: none;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+
+  transition: 0.3s;
 }
 
+.register-button:hover {
+  background: #f6dfbb;
+}
 
+/* Jogar como convidado */
+
+.guest-button {
+  margin-top: 10px;
+
+  border: none;
+  background: transparent;
+
+  color: #78401e;
+
+  font-size: 14px;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.guest-button span {
+  font-size: 23px;
+  margin-left: 5px;
+  vertical-align: -2px;
+}
+
+/* Mensagens de erro */
+
+.login-error {
+  color: #b43d2c;
+  font-size: 12px;
+  text-align: left;
+}
+
+/* Responsividade */
+
+@media (max-width: 768px) {
+  .login-container {
+    width: min(95vw, 620px);
+  }
+
+  .login-content {
+    top: 35%;
+    left: 19%;
+    width: 62%;
+  }
+
+  .login-input-group {
+    height: 40px;
+    border-radius: 15px;
+  }
+
+  .login-input-group input {
+    font-size: 13px;
+  }
+
+  .login-button,
+  .register-button {
+    padding: 9px;
+    font-size: 14px;
+  }
+
+  .guest-button {
+    font-size: 11px;
+    margin-top: 5px;
+  }
+}
 
 @media (max-width: 480px) {
-
-  .auth-card {
-
-    padding: 28px 22px;
-
+  .login-scene {
+    padding: 10px;
+    background-position: center;
   }
 
-
-
-  .back-link {
-
-    top: 15px;
-
-    left: 18px;
-
+  .login-container {
+    width: 100%;
   }
 
+  .login-content h2 {
+    font-size: 15px;
+  }
+
+  .login-divider {
+    margin-bottom: 8px;
+  }
+
+  .login-content form {
+    gap: 6px;
+  }
+
+  .login-input-group {
+    height: 32px;
+    padding: 0 8px;
+  }
+
+  .input-icon {
+    font-size: 14px;
+    margin-right: 6px;
+  }
+
+  .login-input-group input {
+    font-size: 11px;
+  }
+
+  .forgot-password a {
+    font-size: 9px;
+  }
+
+  .login-button,
+  .register-button {
+    font-size: 11px;
+    padding: 7px;
+  }
+
+  .guest-button {
+    font-size: 9px;
+  }
 }
+
 
 
 
@@ -2743,3 +2853,103 @@
     height: auto;
   }
 }
+
+/* =====================================
+   NOVO SISTEMA DE TEMPO DOS CANTEIROS
+===================================== */
+
+/* Agrupamento do canteiro e sua barra */
+
+.plot-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Barra de tempo */
+
+.plant-timer {
+  width: 125px;
+  height: 12px;
+  padding: 2px;
+  box-sizing: border-box;
+
+  background: #f5e8d5;
+  border: 1px solid #9b754d;
+  border-radius: 20px;
+
+  overflow: hidden;
+  box-shadow: 0 2px 4px #0002;
+}
+
+/* Fundo da barra */
+
+.plant-timer-track {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+/* Parte que diminui */
+
+.plant-timer-fill {
+  height: 100%;
+  border-radius: 20px;
+
+  transition:
+    width 0.25s linear,
+    background-color 0.5s ease;
+}
+
+/* Contador de plantas mortas */
+
+.dead-plants-counter {
+  background: #f5d9d5 !important;
+  color: #a34238 !important;
+}
+
+/* Botão de perfil */
+
+.profile-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px 20px;
+
+  background: #82966b;
+  color: white;
+
+  border-radius: 25px;
+
+  font-size: 15px;
+  font-weight: bold;
+
+  text-decoration: none;
+
+  transition: 0.2s ease;
+}
+
+.profile-button:hover {
+  background: #657e50;
+  transform: translateY(-2px);
+}
+
+/* Responsividade da barra */
+
+@media (max-width: 550px) {
+  .plant-timer {
+    width: 95px;
+  }
+
+  .plot-wrapper {
+    gap: 10px;
+  }
+
+  .profile-button {
+    padding: 10px 16px;
+  }
+}
+
