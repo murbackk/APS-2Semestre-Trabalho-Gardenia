@@ -1,0 +1,258 @@
+
+/* =========================================
+   GARDENIA — PÁGINA MEU PERFIL
+   Estilos isolados da página de perfil
+========================================= */
+
+.profile-page {
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 36px 20px;
+  background: #f5f4e9;
+  color: #536b45;
+  font-family: inherit;
+}
+
+.profile-page * {
+  box-sizing: border-box;
+}
+
+.profile-back {
+  width: min(100%, 480px);
+  color: #667d51;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.profile-back:hover {
+  color: #3f5835;
+  text-decoration: underline;
+}
+
+.profile-card {
+  width: min(100%, 480px);
+  padding: 38px 42px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fffdf6;
+  border: 2px solid #e5e3cf;
+  border-radius: 26px;
+  box-shadow: 0 12px 32px rgba(83, 107, 69, 0.12);
+}
+
+.profile-avatar {
+  width: 82px;
+  height: 82px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 12px;
+  border-radius: 50%;
+  background: #edf1df;
+  border: 2px solid #dce5c9;
+  font-size: 43px;
+}
+
+.profile-eyebrow {
+  margin: 0 0 6px;
+  color: #91a078;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+
+.profile-card h1 {
+  margin: 0;
+  color: #536b45;
+  font-family: Georgia, serif;
+  font-size: clamp(30px, 6vw, 38px);
+  font-weight: 700;
+  text-align: center;
+}
+
+.profile-description {
+  margin: 9px 0 25px;
+  color: #858b76;
+  font-size: 14px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.profile-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.profile-form label {
+  margin: 15px 0 7px;
+  color: #536b45;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.profile-form input {
+  width: 100%;
+  min-height: 47px;
+  padding: 12px 14px;
+  border: 1.5px solid #d9ddc9;
+  border-radius: 11px;
+  outline: none;
+  background: #fff;
+  color: #45563b;
+  font: inherit;
+  font-size: 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.profile-form input:focus:not(:disabled) {
+  border-color: #82966b;
+  box-shadow: 0 0 0 3px rgba(130, 150, 107, 0.16);
+}
+
+.profile-form input:disabled {
+  opacity: 1;
+  cursor: default;
+  background: #f1f1e8;
+  color: #777d6b;
+}
+
+.profile-form small {
+  margin-top: 6px;
+  color: #929684;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.profile-save,
+.profile-cancel,
+.profile-logout {
+  min-height: 46px;
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 24px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+}
+
+.profile-save {
+  width: 100%;
+  margin-top: 24px;
+  background: #82966b;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(83, 107, 69, 0.15);
+}
+
+.profile-save:hover:not(:disabled) {
+  background: #667d51;
+  transform: translateY(-1px);
+}
+
+.profile-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.profile-actions .profile-save {
+  flex: 1.3;
+  width: auto;
+  margin-top: 0;
+}
+
+.profile-cancel {
+  flex: 1;
+  background: #eeeee4;
+  color: #66705c;
+}
+
+.profile-cancel:hover:not(:disabled) {
+  background: #e2e4d6;
+}
+
+.profile-save:disabled,
+.profile-cancel:disabled,
+.profile-logout:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.profile-success,
+.profile-error,
+.profile-notice {
+  width: 100%;
+  margin: 0 0 12px;
+  padding: 11px 13px;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.profile-success {
+  background: #e8f2df;
+  color: #45643b;
+}
+
+.profile-error {
+  background: #f9e7e2;
+  color: #a3483c;
+}
+
+.profile-notice {
+  margin: 16px 0 0;
+  background: #f5f0dc;
+  color: #85713d;
+}
+
+.profile-divider {
+  width: 100%;
+  height: 1px;
+  margin: 25px 0 17px;
+  background: #e8e7d9;
+}
+
+.profile-logout {
+  width: 100%;
+  background: transparent;
+  border: 1.5px solid #d9b9ad;
+  color: #a45d50;
+}
+
+.profile-logout:hover:not(:disabled) {
+  background: #fbefeb;
+}
+
+@media (max-width: 520px) {
+  .profile-page {
+    justify-content: flex-start;
+    padding: 24px 15px;
+  }
+
+  .profile-card {
+    padding: 30px 22px;
+    border-radius: 21px;
+  }
+
+  .profile-actions {
+    flex-direction: column;
+  }
+
+  .profile-actions .profile-save,
+  .profile-actions .profile-cancel {
+    width: 100%;
+    min-height: 44px;
+  }
+}

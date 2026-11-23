@@ -124,6 +124,22 @@ export function AuthProvider({ children }) {
     return data
   }
 
+  async function updateProfile(displayName) {
+    const { data, error } = await supabase.auth.updateUser({
+      data: { display_name: displayName }
+    })
+
+    if (error) throw error
+
+    if (data?.user) {
+      setSession((currentSession) => currentSession
+        ? { ...currentSession, user: data.user }
+        : currentSession)
+    }
+
+    return data
+  }
+
   async function logout() {
     const { error } = await supabase.auth.signOut()
 
@@ -142,6 +158,7 @@ export function AuthProvider({ children }) {
     scoreError,
     login,
     register,
+    updateProfile,
     logout,
     savePendingScore
   }
