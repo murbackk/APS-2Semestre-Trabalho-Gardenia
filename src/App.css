@@ -2953,3 +2953,106 @@
   }
 }
 
+
+/* =====================================
+   SISTEMA DE PAUSA - GARDENIA
+===================================== */
+
+/* Botão Pause no cabeçalho */
+
+.pause-button {
+  padding: 11px 24px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 25px;
+  background: #526b91;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.pause-button:hover {
+  background: #3e567c;
+  transform: translateY(-2px);
+}
+
+/* Fundo escurecido da pausa */
+
+.pause-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(20, 145, 76, 0.78);
+  backdrop-filter: blur(2px);
+}
+
+/* Conteúdo central */
+
+.pause-content {
+  width: min(90%, 420px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 32px;
+  padding: 35px 25px;
+
+  text-align: center;
+  color: white;
+}
+
+/* Título */
+
+.pause-content h1 {
+  margin: 0 0 12px;
+
+  color: white;
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: clamp(32px, 6vw, 46px);
+
+  text-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Botões */
+
+.pause-resume,
+.pause-exit {
+  width: 180px;
+  padding: 12px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: transparent;
+  color: white;
+
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 600;
+
+  text-align: center;
+  text-decoration: none;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.pause-resume:hover,
+.pause-exit:hover {
+  background: rgba(255, 255, 255, 0.16);
+  transform: scale(1.05);
+}
+
+.pause-exit {
+  margin-top: -12px;
+}
+

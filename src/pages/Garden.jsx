@@ -88,17 +88,23 @@ export default function Garden() {
   const [progressLoading, setProgressLoading] = useState(true)
   const [loadedUserId, setLoadedUserId] = useState(null)
   const [resetting, setResetting] = useState(false)
+  // Controle da pausa do jogo
+  const [isPaused, setIsPaused] = useState(false)
+  const [pauseStartedAt, setPauseStartedAt] = useState(null)
 
   // Atualização visual independente para as barras de tempo
   const [timerNow, setTimerNow] = useState(Date.now())
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTimerNow(Date.now())
-    }, 250)
+  // Atualizar os temporizadores somente quando o jogo estiver ativo
+useEffect(() => {
+  if (isPaused) return
 
-    return () => clearInterval(interval)
-  }, [])
+  const interval = setInterval(() => {
+    setTimerNow(Date.now())
+  }, 250)
+
+  return () => clearInterval(interval)
+}, [isPaused])
 
   // Atualizar os canteiros do jardim que está aberto
   function updateActivePlots(updater) {
@@ -224,6 +230,7 @@ export default function Garden() {
 
   // Verificar se alguma planta ultrapassou os 60 segundos
   useEffect(() => {
+    if (isPaused) return
     const now = timerNow
 
     const expiredPlots = plots.filter(
@@ -286,7 +293,7 @@ export default function Garden() {
         ? 'Uma planta morreu por falta de cuidados! -10 ❤️ e -20 moedas.'
         : `${totalDeaths} plantas morreram por falta de cuidados! -${totalDeaths * 10} ❤️ e -${totalDeaths * 20} moedas.`
     )
-  }, [timerNow, plots, dreamPlots])
+  }, [timerNow, plots, dreamPlots, isPaused])
 
   // Desbloquear o Dream Garden ao atingir 1000 corações
   useEffect(() => {
@@ -314,6 +321,54 @@ export default function Garden() {
     user?.id,
     loadedUserId,
   ])
+
+
+  // Pausar o jogo
+function pauseGame() {
+  setPauseStartedAt(Date.now())
+  setIsPaused(true)
+}
+
+// Retomar o jogo sem descontar o tempo pausado
+function resumeGame() {
+  if (pauseStartedAt) {
+    const pausedDuration = Date.now() - pauseStartedAt
+
+    // Ajustar os temporizadores do jardim inicial
+    setPlots((previous) =>
+      previous.map((plot) => ({
+        ...plot,
+        plant: plot.plant
+          ? {
+              ...plot.plant,
+              actionStartedAt:
+                (plot.plant.actionStartedAt || Date.now()) +
+                pausedDuration,
+            }
+          : null,
+      }))
+    )
+
+    // Ajustar os temporizadores do Dream Garden
+    setDreamPlots((previous) =>
+      previous.map((plot) => ({
+        ...plot,
+        plant: plot.plant
+          ? {
+              ...plot.plant,
+              actionStartedAt:
+                (plot.plant.actionStartedAt || Date.now()) +
+                pausedDuration,
+            }
+          : null,
+      }))
+    )
+  }
+
+  setTimerNow(Date.now())
+  setPauseStartedAt(null)
+  setIsPaused(false)
+}
 
   function addHearts(points) {
     setHearts((previous) =>
@@ -639,6 +694,16 @@ export default function Garden() {
         >
           🔄 Reiniciar progresso
         </button>
+
+         
+         <button
+  className="pause-button"
+  onClick={pauseGame}
+  disabled={resetting}
+>
+  ⏸ Pause
+</button>
+
       </header>
 
       <section className="garden-content">
@@ -858,6 +923,31 @@ export default function Garden() {
           </div>
         </section>
       </section>
+
+      {/* TELA DE JOGO PAUSADO */}
+{isPaused && (
+  <div className="pause-overlay">
+    <div className="pause-content">
+
+      <h1>Jogo pausado</h1>
+
+      <button
+        className="pause-resume"
+        onClick={resumeGame}
+      >
+        Voltar
+      </button>
+
+      <Link
+        to="/"
+        className="pause-exit"
+      >
+        Sair
+      </Link>
+
+    </div>
+  </div>
+)}
 
       {/* AVISOS E CONFIRMAÇÕES CENTRALIZADOS */}
       {modal && (
