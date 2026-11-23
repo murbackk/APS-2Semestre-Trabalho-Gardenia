@@ -12,6 +12,7 @@ import Login from './pages/Login'
 import Cadastro from './pages/Cadastro'
 import Perfil from './pages/Perfil'
 import ProtectedRoute from './components/ProtectedRoute'
+import Ranking from './pages/Ranking'
 
 import './App.css'
 
@@ -68,6 +69,15 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          <Route
+  path="/ranking"
+  element={
+    <ProtectedRoute>
+      <Ranking />
+    </ProtectedRoute>
+  }
+/>
 
           <Route path="*" element={<NotFound />} />
         </Routes>

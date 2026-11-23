@@ -55,7 +55,7 @@ function preparePlots(savedPlots) {
 }
 
 export default function Garden() {
-  const { user, authLoading } = useAuth()
+  const { user, authLoading, savePendingScore } = useAuth()
 
   const [hearts, setHearts] = useState(INITIAL_HEARTS)
   const [coins, setCoins] = useState(INITIAL_COINS)
@@ -371,10 +371,11 @@ function resumeGame() {
 }
 
   function addHearts(points) {
-    setHearts((previous) =>
-      Math.min(activeLimit, previous + points)
-    )
-  }
+  const newScore = Math.min(activeLimit, hearts + points)
+
+  setHearts(newScore)
+  savePendingScore(newScore)
+}
 
   // Alternar entre os jardins
   function selectGarden(garden) {
@@ -686,6 +687,10 @@ function resumeGame() {
         <Link to="/perfil" className="profile-button">
           👤 Perfil
         </Link>
+
+        <Link to="/ranking" className="profile-button">
+  🏆 Ranking
+</Link>
 
         <button
           className="reset-button"
