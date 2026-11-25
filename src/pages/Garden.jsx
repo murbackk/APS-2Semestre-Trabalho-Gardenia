@@ -1,7 +1,6 @@
 
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import placaLogo from '../assets/placa-logo.png'
 import { useAuth } from '../context/AuthContext'
 import {
   loadGameProgress,
@@ -9,10 +8,10 @@ import {
 } from '../services/gameProgressService'
 
 import plantarImg from '../assets/plantar.png'
-import regadorImg from '../assets/regador.png'
+import regarImg from '../assets/regar.png'
+import removerImg from '../assets/remover.png'
 import colherImg from '../assets/colher.png'
-import tesouraImg from '../assets/tesoura.png'
-import seedImg from '../assets/plantar.png'
+import seedsImg from '../assets/seeds.png'
 
 const INITIAL_HEARTS = 300
 const INITIAL_COINS = 500
@@ -55,7 +54,7 @@ function preparePlots(savedPlots) {
 }
 
 export default function Garden() {
-  const { user, authLoading, savePendingScore } = useAuth()
+  const { user, authLoading } = useAuth()
 
   const [hearts, setHearts] = useState(INITIAL_HEARTS)
   const [coins, setCoins] = useState(INITIAL_COINS)
@@ -80,6 +79,9 @@ export default function Garden() {
 
   const [shopOpen, setShopOpen] = useState(false)
   const [gardenOpen, setGardenOpen] = useState(false)
+  const [settingsOpen, setSettingsOpen] = useState(false)
+  const [isPaused, setIsPaused] = useState(false)
+  const [pauseStartedAt, setPauseStartedAt] = useState(null)
 
   const [selectedPlot, setSelectedPlot] = useState(null)
   const [message, setMessage] = useState('Escolha uma semente e plante!')
@@ -88,23 +90,19 @@ export default function Garden() {
   const [progressLoading, setProgressLoading] = useState(true)
   const [loadedUserId, setLoadedUserId] = useState(null)
   const [resetting, setResetting] = useState(false)
-  // Controle da pausa do jogo
-  const [isPaused, setIsPaused] = useState(false)
-  const [pauseStartedAt, setPauseStartedAt] = useState(null)
 
   // Atualização visual independente para as barras de tempo
   const [timerNow, setTimerNow] = useState(Date.now())
 
-  // Atualizar os temporizadores somente quando o jogo estiver ativo
-useEffect(() => {
-  if (isPaused) return
+  useEffect(() => {
+    if (isPaused) return
 
-  const interval = setInterval(() => {
-    setTimerNow(Date.now())
-  }, 250)
+    const interval = setInterval(() => {
+      setTimerNow(Date.now())
+    }, 250)
 
-  return () => clearInterval(interval)
-}, [isPaused])
+    return () => clearInterval(interval)
+  }, [isPaused])
 
   // Atualizar os canteiros do jardim que está aberto
   function updateActivePlots(updater) {
@@ -231,6 +229,7 @@ useEffect(() => {
   // Verificar se alguma planta ultrapassou os 60 segundos
   useEffect(() => {
     if (isPaused) return
+
     const now = timerNow
 
     const expiredPlots = plots.filter(
@@ -322,60 +321,40 @@ useEffect(() => {
     loadedUserId,
   ])
 
-
-  // Pausar o jogo
-function pauseGame() {
-  setPauseStartedAt(Date.now())
-  setIsPaused(true)
-}
-
-// Retomar o jogo sem descontar o tempo pausado
-function resumeGame() {
-  if (pauseStartedAt) {
-    const pausedDuration = Date.now() - pauseStartedAt
-
-    // Ajustar os temporizadores do jardim inicial
-    setPlots((previous) =>
-      previous.map((plot) => ({
-        ...plot,
-        plant: plot.plant
-          ? {
-              ...plot.plant,
-              actionStartedAt:
-                (plot.plant.actionStartedAt || Date.now()) +
-                pausedDuration,
-            }
-          : null,
-      }))
-    )
-
-    // Ajustar os temporizadores do Dream Garden
-    setDreamPlots((previous) =>
-      previous.map((plot) => ({
-        ...plot,
-        plant: plot.plant
-          ? {
-              ...plot.plant,
-              actionStartedAt:
-                (plot.plant.actionStartedAt || Date.now()) +
-                pausedDuration,
-            }
-          : null,
-      }))
-    )
+  function pauseGame() {
+    setPauseStartedAt(Date.now())
+    setIsPaused(true)
   }
 
-  setTimerNow(Date.now())
-  setPauseStartedAt(null)
-  setIsPaused(false)
-}
+  function resumeGame() {
+    if (pauseStartedAt) {
+      const pausedDuration = Date.now() - pauseStartedAt
+
+      const shiftPlantTimers = (previous) =>
+        previous.map((plot) => ({
+          ...plot,
+          plant: plot.plant
+            ? {
+                ...plot.plant,
+                actionStartedAt: (plot.plant.actionStartedAt || pauseStartedAt) + pausedDuration,
+              }
+            : null,
+        }))
+
+      setPlots(shiftPlantTimers)
+      setDreamPlots(shiftPlantTimers)
+    }
+
+    setTimerNow(Date.now())
+    setPauseStartedAt(null)
+    setIsPaused(false)
+  }
 
   function addHearts(points) {
-  const newScore = Math.min(activeLimit, hearts + points)
-
-  setHearts(newScore)
-  savePendingScore(newScore)
-}
+    setHearts((previous) =>
+      Math.min(activeLimit, previous + points)
+    )
+  }
 
   // Alternar entre os jardins
   function selectGarden(garden) {
@@ -668,64 +647,48 @@ function resumeGame() {
       }`}
     >
       <header className="garden-header">
-        <Link
-          to="/"
-          className="garden-logo"
-          aria-label="Gardenia - página inicial"
-        >
-          <img src={placaLogo} alt="Gardenia" />
-        </Link>
 
         <div className="resources">
-          <span>❤️ {hearts}/{activeLimit}</span>
-          <span>💰 {coins}</span>
-          <span className="dead-plants-counter">
-            🥀 {deadPlants}
-          </span>
+          <span className="resource-pill">❤️ {hearts}/{activeLimit}</span>
+          <span className="resource-pill">💰 {coins}</span>
+          <span className="resource-pill dead-plants-counter">🥀 {deadPlants}</span>
         </div>
 
-        <Link to="/perfil" className="profile-button">
-          👤 Perfil
-        </Link>
-
-        <Link to="/ranking" className="profile-button">
-  🏆 Ranking
-</Link>
-
         <button
-          className="reset-button"
-          onClick={handleResetProgress}
-          disabled={resetting}
+          className="pause-button"
+          onClick={pauseGame}
+          disabled={resetting || isPaused}
+          aria-label="Pausar jogo"
         >
-          🔄 Reiniciar progresso
+          ⏸ Pause
         </button>
 
-         
-         <button
-  className="pause-button"
-  onClick={pauseGame}
-  disabled={resetting}
->
-  ⏸ Pause
-</button>
+        <button
+          className="settings-button"
+          onClick={() => {
+            setSettingsOpen((open) => !open)
+            setGardenOpen(false)
+          }}
+          aria-label="Abrir configurações"
+        >
+          ⚙
+        </button>
 
+        {settingsOpen && (
+          <div className="settings-menu">
+            <Link to="/perfil">Meu perfil</Link>
+            <Link to="/ranking">Ranking</Link>
+            <button onClick={handleResetProgress} disabled={resetting}>
+              Reiniciar progresso
+            </button>
+            <Link to="/">Sair do jogo</Link>
+          </div>
+        )}
       </header>
 
       <section className="garden-content">
         <div className="garden-top">
-          <div>
-            <h1>
-              {currentGarden === 'dream'
-                ? 'Dream Garden'
-                : 'Meu Jardim'}
-            </h1>
-
-            <p>
-              {currentGarden === 'dream'
-                ? 'Cultive seus sonhos e faça este jardim florescer!'
-                : 'Cuide das suas plantas e faça seu jardim florescer!'}
-            </p>
-          </div>
+          
 
           <button
             className="garden-menu-button"
@@ -830,129 +793,110 @@ function resumeGame() {
         </section>
 
         <section className="game-panel">
-          <div className="seed-panel">
-            <h2>Minhas sementes</h2>
-
-            <div className="seed-options">
-              <button
-                className={
-                  selectedSeed === 'amarela' ? 'selected' : ''
-                }
-                onClick={() => {
-                  setSelectedSeed('amarela')
-                  setSelectedTool('plant')
-                }}
-              >
-                🌻 Amarela: {inventory.amarela}
-              </button>
-
-              <button
-                className={
-                  selectedSeed === 'rosa' ? 'selected' : ''
-                }
-                onClick={() => {
-                  setSelectedSeed('rosa')
-                  setSelectedTool('plant')
-                }}
-              >
-                🌷 Rosa: {inventory.rosa}
-              </button>
-            </div>
-          </div>
-
-          <div className="tools-panel">
-            <h2>Ferramentas</h2>
-
-            <div className="tool-options">
-              <button
-                className={
-                  selectedTool === 'plant' ? 'selected' : ''
-                }
-                onClick={() => setSelectedTool('plant')}
-              >
-                🌱 Plantar
-              </button>
-
-              <button
-                className={
-                  selectedTool === 'water' ? 'selected' : ''
-                }
-                onClick={() => setSelectedTool('water')}
-              >
-                💧 Regar
-              </button>
-
-              <button
-                className={
-                  selectedTool === 'harvest' ? 'selected' : ''
-                }
-                onClick={() => setSelectedTool('harvest')}
-              >
-                🧺 Colher
-              </button>
-
-              <button
-                className={
-                  selectedTool === 'remove' ? 'selected' : ''
-                }
-                onClick={() => setSelectedTool('remove')}
-              >
-                🗑️ Remover
-              </button>
-            </div>
-          </div>
-
-          <div className="shop-panel">
+          <div className="tools-toolbar">
             <button
-              className="shop-button"
-              onClick={() => setShopOpen(!shopOpen)}
+              type="button"
+              className={`tool-image-button ${selectedTool === 'water' ? 'selected' : ''}`}
+              onClick={() => setSelectedTool('water')}
+              aria-label="Selecionar ferramenta regar"
             >
-              🛒 Loja de sementes
+              <img src={regarImg} alt="" />
+              <span>Regar</span>
             </button>
 
-            {shopOpen && (
-              <div className="shop-content">
-                <h2>Comprar sementes</h2>
+            <button
+              type="button"
+              className={`tool-image-button ${selectedTool === 'plant' ? 'selected' : ''}`}
+              onClick={() => setSelectedTool('plant')}
+              aria-label="Selecionar ferramenta plantar"
+            >
+              <img src={plantarImg} alt="" />
+              <span>Plantar</span>
+            </button>
 
-                <p>🌻 Semente amarela — 100 moedas</p>
-                <button onClick={() => buySeed('amarela')}>
-                  Comprar amarela
+            <button
+              type="button"
+              className={`tool-image-button ${selectedTool === 'remove' ? 'selected' : ''}`}
+              onClick={() => setSelectedTool('remove')}
+              aria-label="Selecionar ferramenta remover"
+            >
+              <img src={removerImg} alt="" />
+              <span>Remover</span>
+            </button>
+
+            <button
+              type="button"
+              className={`tool-image-button ${selectedTool === 'harvest' ? 'selected' : ''}`}
+              onClick={() => setSelectedTool('harvest')}
+              aria-label="Selecionar ferramenta colher"
+            >
+              <img src={colherImg} alt="" />
+              <span>Colher</span>
+            </button>
+
+            <button
+              type="button"
+              className={`tool-image-button seeds-button ${shopOpen ? 'selected' : ''}`}
+              onClick={() => setShopOpen((open) => !open)}
+              aria-label="Abrir loja de sementes"
+            >
+              <img src={seedsImg} alt="" />
+              <span>Sementes</span>
+            </button>
+          </div>
+
+          {shopOpen && (
+            <div className="shop-content">
+              <h2>Loja de sementes</h2>
+
+              <div className="seed-options">
+                <button
+                  className={selectedSeed === 'amarela' ? 'selected' : ''}
+                  onClick={() => {
+                    setSelectedSeed('amarela')
+                    setSelectedTool('plant')
+                  }}
+                >
+                  🌻 Amarela: {inventory.amarela}
                 </button>
-
-                <p>🌷 Semente rosa — 100 moedas</p>
-                <button onClick={() => buySeed('rosa')}>
-                  Comprar rosa
+                <button
+                  className={selectedSeed === 'rosa' ? 'selected' : ''}
+                  onClick={() => {
+                    setSelectedSeed('rosa')
+                    setSelectedTool('plant')
+                  }}
+                >
+                  🌷 Rosa: {inventory.rosa}
                 </button>
               </div>
-            )}
-          </div>
+
+              <p>🌻 Semente amarela — 100 moedas</p>
+              <button onClick={() => buySeed('amarela')}>
+                Comprar amarela
+              </button>
+
+              <p>🌷 Semente rosa — 100 moedas</p>
+              <button onClick={() => buySeed('rosa')}>
+                Comprar rosa
+              </button>
+            </div>
+          )}
         </section>
       </section>
 
-      {/* TELA DE JOGO PAUSADO */}
-{isPaused && (
-  <div className="pause-overlay">
-    <div className="pause-content">
-
-      <h1>Jogo pausado</h1>
-
-      <button
-        className="pause-resume"
-        onClick={resumeGame}
-      >
-        Voltar
-      </button>
-
-      <Link
-        to="/"
-        className="pause-exit"
-      >
-        Sair
-      </Link>
-
-    </div>
-  </div>
-)}
+      {isPaused && (
+        <div className="pause-overlay">
+          <div className="pause-content">
+            <h1>Jogo pausado</h1>
+            <button className="pause-resume" onClick={resumeGame}>
+              Voltar
+            </button>
+            <Link to="/" className="pause-exit">
+              Sair
+            </Link>
+          </div>
+        </div>
+      )}
 
       {/* AVISOS E CONFIRMAÇÕES CENTRALIZADOS */}
       {modal && (

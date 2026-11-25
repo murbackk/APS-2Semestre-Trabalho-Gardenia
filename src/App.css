@@ -3056,3 +3056,221 @@
   margin-top: -12px;
 }
 
+
+/* =====================================================
+   GARDENIA — BARRA DE FERRAMENTAS (AJUSTE FINAL)
+   As imagens PNG já contêm as plaquinhas com os nomes.
+   Portanto, os spans do JSX ficam ocultos para não duplicar.
+===================================================== */
+
+.garden-screen .game-panel {
+  position: fixed;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  z-index: 40;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: auto;
+  max-width: calc(100vw - 24px);
+  margin: 0;
+  padding: 0;
+
+  background: transparent;
+  box-shadow: none;
+  box-sizing: border-box;
+}
+
+.garden-screen .tools-toolbar {
+  position: relative;
+
+  display: grid;
+  grid-template-columns: repeat(4, 112px) 150px;
+  align-items: center;
+  justify-items: center;
+  gap: 8px;
+
+  width: auto;
+  padding: 0;
+  margin: 0;
+
+  background: transparent;
+}
+
+/* Fundo arredondado das quatro ferramentas */
+
+.garden-screen .tools-toolbar::before {
+  content: "";
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+  left: 0;
+
+  width: calc(100% - 158px);
+
+  background: #ead4b9;
+
+  border-radius: 34px;
+
+  z-index: 0;
+}
+
+/* Mantém os botões acima do fundo */
+
+.garden-screen .tools-toolbar > * {
+  position: relative;
+  z-index: 1;
+}
+
+.garden-screen .tool-image-button {
+  position: relative;
+  isolation: isolate;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 112px;
+  height: 88px;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+
+  border: 0;
+  border-radius: 25px;
+  background: transparent;
+  box-shadow: none;
+
+  cursor: pointer;
+  transition: background-color 160ms ease;
+}
+
+/* PNG completo: ilustração + plaquinha original. */
+.garden-screen .tool-image-button img {
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  transform: translateX(-50%);
+
+  display: block;
+  width: 106px;
+  height: 132px;
+  max-width: none;
+  object-fit: contain;
+  object-position: center;
+
+  pointer-events: none;
+  transition: transform 160ms ease;
+}
+
+/* Os nomes já fazem parte dos arquivos PNG. */
+.garden-screen .tool-image-button span {
+  display: none !important;
+}
+
+.garden-screen .tool-image-button:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.garden-screen .tool-image-button:hover img {
+  transform: translate(-50%, -3px);
+}
+
+.garden-screen .tool-image-button.selected {
+  background: rgba(255, 255, 255, 0.28);
+  outline: none;
+  box-shadow: none;
+}
+
+/* Sementes: painel independente, como na imagem de referência. */
+.garden-screen .tool-image-button.seeds-button {
+  width: 150px;
+  height: 88px;
+  margin-left: 0;
+  border-radius: 28px;
+  background: #ead4b9;
+}
+
+.garden-screen .tool-image-button.seeds-button:hover {
+  background: #f0dfc9;
+}
+
+.garden-screen .tool-image-button.seeds-button.selected {
+  background: #e4d0b5;
+}
+
+.garden-screen .shop-content {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 14px);
+  z-index: 45;
+
+  width: 260px;
+  max-width: min(90vw, 320px);
+  margin: 0;
+}
+
+/* Ajuste para notebooks e telas médias. */
+@media (max-width: 850px) {
+  .garden-screen .tools-toolbar {
+    grid-template-columns: repeat(4, minmax(76px, 1fr)) minmax(92px, 1.2fr);
+    gap: 4px;
+    width: min(680px, calc(100vw - 20px));
+  }
+
+  .garden-screen .tool-image-button,
+  .garden-screen .tool-image-button.seeds-button {
+    width: 100%;
+    height: 78px;
+  }
+
+  .garden-screen .tool-image-button img {
+    width: 91px;
+    height: 114px;
+    bottom: -4px;
+  }
+
+  .garden-screen .tools-toolbar {
+    background: linear-gradient(
+      to right,
+      #ead4b9 0,
+      #ead4b9 calc(80% - 3px),
+      transparent calc(80% - 3px),
+      transparent 100%
+    );
+  }
+}
+
+/* Celulares: manter os cinco botões em uma única linha. */
+@media (max-width: 550px) {
+  .garden-screen .game-panel {
+    bottom: 7px;
+    width: calc(100vw - 10px);
+    max-width: none;
+  }
+
+  .garden-screen .tools-toolbar {
+    width: 100%;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(0, 1.12fr);
+    gap: 2px;
+    padding: 0 3px;
+    border-radius: 23px;
+  }
+
+  .garden-screen .tool-image-button,
+  .garden-screen .tool-image-button.seeds-button {
+    height: 65px;
+    border-radius: 17px;
+  }
+
+  .garden-screen .tool-image-button img {
+    width: 75px;
+    height: 94px;
+    bottom: -3px;
+  }
+}
