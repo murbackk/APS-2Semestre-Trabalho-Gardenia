@@ -13,9 +13,30 @@ import removerImg from '../assets/remover.png'
 import colherImg from '../assets/colher.png'
 import seedsImg from '../assets/seeds.png'
 
+import canteiroVazioImg from '../assets/canteiro/vazio.png'
+import canteiroSementeImg from '../assets/canteiro/semente.png'
+import canteiroCrescendoImg from '../assets/canteiro/crescendo.png'
+import canteiroRegadoImg from '../assets/canteiro/regado.png'
+
+// Os sprites finais das flores são detectados automaticamente quando
+// os respectivos PNGs forem adicionados à pasta assets/canteiro.
+const canteiroFlowerAssets = import.meta.glob(
+  '../assets/canteiro/*.png',
+  { eager: true, query: '?url', import: 'default' }
+)
+
+const canteiroFlowerByName = Object.fromEntries(
+  Object.entries(canteiroFlowerAssets).map(([filePath, imageUrl]) => [
+    filePath.split('/').pop().replace(/\.png$/i, '').toLowerCase(),
+    imageUrl,
+  ])
+)
+
 const INITIAL_HEARTS = 300
 const INITIAL_COINS = 500
 const ACTION_TIME = 60 * 1000
+const GROWTH_STAGE_TIME = 30 * 1000
+const WATER_TO_FLOWER_TIME = 30 * 1000
 
 const INITIAL_INVENTORY = {
   amarela: 2,
@@ -41,16 +62,23 @@ const SEEDS = {
 }
 
 function preparePlots(savedPlots) {
-  return (savedPlots || INITIAL_PLOTS).map((plot) => ({
-    ...plot,
-    plant: plot.plant
-      ? {
-          ...plot.plant,
-          actionStartedAt:
-            plot.plant.actionStartedAt || Date.now(),
-        }
-      : null,
-  }))
+  return (savedPlots || INITIAL_PLOTS).map((plot) => {
+    if (!plot.plant) return { ...plot, plant: null }
+
+    const legacyStartedAt = plot.plant.actionStartedAt || Date.now()
+
+    return {
+      ...plot,
+      plant: {
+        ...plot.plant,
+        actionStartedAt: legacyStartedAt,
+        plantedAt: plot.plant.plantedAt || legacyStartedAt,
+        wateredAt:
+          plot.plant.wateredAt ??
+          (plot.plant.stage === 'watered' ? legacyStartedAt : null),
+      },
+    }
+  })
 }
 
 export default function Garden() {
@@ -103,6 +131,46 @@ export default function Garden() {
 
     return () => clearInterval(interval)
   }, [isPaused])
+
+  // Evolução automática dos sprites: semente -> crescendo após 30s;
+  // regado -> flor após mais 30s. Os tempos param quando o jogo é pausado.
+  useEffect(() => {
+    if (isPaused) return
+
+    const advanceGrowth = (previous) => {
+      let changed = false
+
+      const next = previous.map((plot) => {
+        const plant = plot.plant
+        if (!plant) return plot
+
+        if (
+          plant.wateredAt &&
+          plant.stage !== 'grown' &&
+          timerNow - plant.wateredAt >= WATER_TO_FLOWER_TIME
+        ) {
+          changed = true
+          return { ...plot, plant: { ...plant, stage: 'grown' } }
+        }
+
+        if (
+          !plant.wateredAt &&
+          plant.stage === 'seed' &&
+          timerNow - (plant.plantedAt || plant.actionStartedAt) >= GROWTH_STAGE_TIME
+        ) {
+          changed = true
+          return { ...plot, plant: { ...plant, stage: 'sprout' } }
+        }
+
+        return plot
+      })
+
+      return changed ? next : previous
+    }
+
+    setPlots(advanceGrowth)
+    setDreamPlots(advanceGrowth)
+  }, [timerNow, isPaused])
 
   // Atualizar os canteiros do jardim que está aberto
   function updateActivePlots(updater) {
@@ -337,6 +405,10 @@ export default function Garden() {
             ? {
                 ...plot.plant,
                 actionStartedAt: (plot.plant.actionStartedAt || pauseStartedAt) + pausedDuration,
+                plantedAt: (plot.plant.plantedAt || plot.plant.actionStartedAt || pauseStartedAt) + pausedDuration,
+                wateredAt: plot.plant.wateredAt
+                  ? plot.plant.wateredAt + pausedDuration
+                  : null,
               }
             : null,
         }))
@@ -420,6 +492,8 @@ export default function Garden() {
                   type: selectedSeed,
                   stage: 'seed',
                   watered: false,
+                  plantedAt: Date.now(),
+                  wateredAt: null,
                   actionStartedAt: Date.now(),
                 },
               }
@@ -445,12 +519,26 @@ export default function Garden() {
       }
 
       if (plot.plant.stage === 'grown') {
-        setMessage('Sua planta já está adulta! 🌻')
+        setMessage('Sua flor já está pronta para colher! 🌸')
         return
       }
 
-      const nextStage =
-        plot.plant.stage === 'seed' ? 'sprout' : 'grown'
+      if (plot.plant.wateredAt) {
+        setMessage('Esta planta já foi regada. Aguarde 30 segundos para florescer!')
+        return
+      }
+
+      const plantedAt =
+        plot.plant.plantedAt || plot.plant.actionStartedAt || Date.now()
+      const elapsedSincePlanting = Date.now() - plantedAt
+
+      if (elapsedSincePlanting < GROWTH_STAGE_TIME) {
+        const secondsLeft = Math.ceil(
+          (GROWTH_STAGE_TIME - elapsedSincePlanting) / 1000
+        )
+        setMessage(`A muda ainda está crescendo! Aguarde ${secondsLeft}s para regar.`)
+        return
+      }
 
       updateActivePlots((previous) =>
         previous.map((item) =>
@@ -459,8 +547,9 @@ export default function Garden() {
                 ...item,
                 plant: {
                   ...item.plant,
-                  stage: nextStage,
+                  stage: 'watered',
                   watered: true,
+                  wateredAt: Date.now(),
                   actionStartedAt: Date.now(),
                 },
               }
@@ -470,7 +559,7 @@ export default function Garden() {
 
       addHearts(5)
       setCoins((previous) => previous + 25)
-      setMessage('Planta regada! +5 ❤️ e +25 moedas 💰')
+      setMessage('Planta regada! Aguarde 30 segundos para florescer. +5 ❤️ e +25 moedas 💰')
       return
     }
 
@@ -519,23 +608,57 @@ export default function Garden() {
     }
   }
 
-  // Ícone de cada estágio da planta
-  function getPlantIcon(plant) {
-    if (!plant) return '🟫'
+  // Retorna o sprite PNG da fase atual do canteiro.
+  function getPlotSprite(plant) {
+    if (!plant) return canteiroVazioImg
 
-    if (plant.type === 'amarela') {
-      if (plant.stage === 'seed') return '🌱'
-      if (plant.stage === 'sprout') return '🌿'
-      if (plant.stage === 'grown') return '🌻'
+    if (plant.stage === 'grown') {
+      const flowerNames = {
+        amarela: 'girassol',
+        rosa: 'rosa',
+        margarida: 'margarida',
+        orquidea: 'orquidea',
+        lirio: 'lirio',
+        girassol: 'girassol',
+        gerbera: 'gerbera',
+        alstromelia: 'alstromelia',
+      }
+
+      const flowerName = (
+        plant.flower || flowerNames[plant.type] || plant.type
+      ).toLowerCase()
+
+      // Até o PNG da flor ser adicionado, mantém a imagem de planta regada.
+      return canteiroFlowerByName[flowerName] || canteiroRegadoImg
     }
 
-    if (plant.type === 'rosa') {
-      if (plant.stage === 'seed') return '🌱'
-      if (plant.stage === 'sprout') return '🌿'
-      if (plant.stage === 'grown') return '🌷'
+    if (plant.wateredAt || plant.stage === 'watered') {
+      return canteiroRegadoImg
     }
 
-    return '🌱'
+    const plantedAt = plant.plantedAt || plant.actionStartedAt || timerNow
+
+    if (
+      plant.stage === 'sprout' ||
+      timerNow - plantedAt >= GROWTH_STAGE_TIME
+    ) {
+      return canteiroCrescendoImg
+    }
+
+    return canteiroSementeImg
+  }
+
+  function getPlotSpriteAlt(plant) {
+    if (!plant) return 'Canteiro vazio'
+    if (plant.stage === 'grown') return `Canteiro com ${plant.type} pronta`
+    if (plant.wateredAt || plant.stage === 'watered') return 'Canteiro regado'
+
+    const plantedAt = plant.plantedAt || plant.actionStartedAt || timerNow
+    if (plant.stage === 'sprout' || timerNow - plantedAt >= GROWTH_STAGE_TIME) {
+      return 'Canteiro com muda crescendo'
+    }
+
+    return 'Canteiro com semente plantada'
   }
 
   // Abrir a confirmação de reinício
@@ -759,19 +882,12 @@ export default function Garden() {
                     handlePlotClick(plot.id)
                   }}
                 >
-                  <span className="plant-icon">
-                    {getPlantIcon(plot.plant)}
-                  </span>
-
-                  {plot.plant && (
-                    <small>
-                      {plot.plant.stage === 'seed'
-                        ? 'Semente'
-                        : plot.plant.stage === 'sprout'
-                          ? 'Crescendo'
-                          : 'Adulta'}
-                    </small>
-                  )}
+                  <img
+                    className="plot-sprite"
+                    src={getPlotSprite(plot.plant)}
+                    alt={getPlotSpriteAlt(plot.plant)}
+                    draggable="false"
+                  />
                 </button>
 
                 {timer && (

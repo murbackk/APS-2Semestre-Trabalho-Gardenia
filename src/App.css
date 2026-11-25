@@ -1,40 +1,80 @@
 /* =========================
 
+
+
    TELA INICIAL - GARDENIA
 
-========================= */
+
+
+\========================= */
+
+
+
+
 
 
 
 .home-screen {
 
+
+
   min-height: 100vh;
+
+
 
   width: 100%;
 
+
+
   position: relative;
+
+
 
   overflow: hidden;
 
 
 
+
+
+
+
   background-image: url('./assets/fundo-inicial.png');
+
+
 
   background-size: cover;
 
+
+
   background-position: center;
+
+
 
   background-repeat: no-repeat;
 
 
 
+
+
+
+
   display: flex;
+
+
 
   align-items: center;
 
+
+
   justify-content: center;
 
+
+
 }
+
+
+
+
 
 
 
@@ -42,27 +82,55 @@
 
 
 
+
+
+
+
 .welcome-art {
+
+
 
   position: absolute;
 
 
 
+
+
+
+
   width: 100%;
+
+
 
   height: 100%;
 
 
 
+
+
+
+
   object-fit: contain;
+
+
 
   object-position: center;
 
 
 
+
+
+
+
   top: 0;
 
+
+
   left: 0;
+
+
+
+
 
 
 
@@ -70,11 +138,23 @@
 
 
 
+
+
+
+
   pointer-events: none;
+
+
 
   user-select: none;
 
+
+
 }
+
+
+
+
 
 
 
@@ -82,17 +162,35 @@
 
 
 
+
+
+
+
 .play-button {
+
+
 
   position: absolute;
 
 
 
+
+
+
+
   /* Posicionamento abaixo da placa */
+
+
 
   left: 62.5%;
 
+
+
   top: 43.2%;
+
+
+
+
 
 
 
@@ -100,25 +198,51 @@
 
 
 
+
+
+
+
   display: flex;
+
+
 
   align-items: center;
 
+
+
   justify-content: center;
+
+
 
   gap: 9px;
 
 
 
+
+
+
+
   background: #00bd67;
+
+
 
   color: white;
 
 
 
+
+
+
+
   border: none;
 
+
+
   border-radius: 10px;
+
+
+
+
 
 
 
@@ -126,13 +250,27 @@
 
 
 
+
+
+
+
   font-family: Arial, sans-serif;
+
+
 
   font-size: 27px;
 
+
+
   font-weight: bold;
 
+
+
   text-decoration: none;
+
+
+
+
 
 
 
@@ -140,23 +278,47 @@
 
 
 
+
+
+
+
   z-index: 5;
+
+
+
+
 
 
 
   transition: background 0.2s ease, transform 0.2s ease;
 
+
+
 }
+
+
+
+
 
 
 
 .play-button:hover {
 
+
+
   background: #00a957;
+
+
 
   transform: translate(-50%, -50%) scale(1.06);
 
+
+
 }
+
+
+
+
 
 
 
@@ -164,29 +326,59 @@
 
 
 
+
+
+
+
 .play-icon {
 
+
+
   width: 0;
+
+
 
   height: 0;
 
 
 
+
+
+
+
   border-top: 14px solid transparent;
+
+
 
   border-bottom: 14px solid transparent;
 
+
+
   border-left: 21px solid white;
+
+
 
 }
 
 
 
+
+
+
+
 /* =========================
+
+
 
    RESPONSIVIDADE DA HOME
 
-========================= */
+
+
+\========================= */
+
+
+
+
 
 
 
@@ -194,55 +386,111 @@
 
 
 
+
+
+
+
   .home-screen {
+
+
 
     background-position: center;
 
+
+
   }
+
+
+
+
 
 
 
   .welcome-art {
 
+
+
     width: 100%;
+
+
 
     height: 100%;
 
+
+
     object-fit: contain;
 
+
+
   }
+
+
+
+
 
 
 
   .play-button {
 
+
+
     left: 62.5%;
+
+
 
     top: 43.2%;
 
 
 
+
+
+
+
     font-size: 20px;
+
+
 
     padding: 7px 12px;
 
+
+
     gap: 7px;
 
+
+
   }
+
+
+
+
 
 
 
   .play-icon {
 
+
+
     border-top-width: 11px;
+
+
 
     border-bottom-width: 11px;
 
+
+
     border-left-width: 16px;
+
+
 
   }
 
+
+
 }
+
+
+
+
 
 
 
@@ -250,499 +498,999 @@
 
 
 
+
+
+
+
   .home-screen {
+
+
 
     background-size: cover;
 
+
+
     background-position: center;
 
+
+
   }
+
+
+
+
 
 
 
   .welcome-art {
 
+
+
     width: 100%;
+
+
 
     height: 100%;
 
+
+
     object-fit: contain;
 
+
+
   }
+
+
+
+
 
 
 
   .play-button {
 
+
+
     left: 62%;
+
+
 
     top: 43%;
 
 
 
+
+
+
+
     font-size: 16px;
 
+
+
     padding: 6px 10px;
+
+
 
     gap: 5px;
 
 
 
+
+
+
+
     border-radius: 7px;
 
+
+
   }
+
+
+
+
 
 
 
   .play-icon {
 
+
+
     border-top-width: 8px;
+
+
 
     border-bottom-width: 8px;
 
+
+
     border-left-width: 12px;
 
+
+
   }
+
+
 
 }
 
 
 
+
+
+
+
 /* =========================
+
+
 
    TELAS DE LOGIN E CADASTRO
 
-========================= */
+
+
+\========================= */
+
+
 
 /* ================================
+
    LOGIN - GARDENIA
-================================ */
+
+\================================ */
+
+
 
 .login-scene {
+
   min-height: 100vh;
+
   width: 100%;
 
+
+
   background-size: cover;
+
   background-position: center;
+
   background-repeat: no-repeat;
 
+
+
   display: flex;
+
   justify-content: center;
+
   align-items: center;
 
+
+
   overflow: hidden;
+
   position: relative;
+
   padding: 20px;
+
 }
+
+
 
 /* Container da placa */
 
+
+
 .login-container {
+
   position: relative;
 
+
+
   width: min(52vw, 780px);
+
   aspect-ratio: 3 / 2;
 
+
+
   display: flex;
+
   justify-content: center;
+
   align-items: center;
+
 }
+
+
 
 /* Imagem da placa */
 
+
+
 .login-sign {
+
   position: absolute;
 
+
+
   width: 100%;
+
   height: 100%;
+
+
 
   object-fit: contain;
 
+
+
   z-index: 1;
+
   pointer-events: none;
+
 }
+
+
 
 /* Conteúdo do formulário */
 
+
+
 .login-content {
+
   position: absolute;
+
+
 
   z-index: 2;
 
+
+
   top: 35%;
+
   left: 19%;
 
+
+
   width: 62%;
+
   height: 60%;
 
+
+
   display: flex;
+
   flex-direction: column;
+
   align-items: center;
 
+
+
   text-align: center;
+
 }
+
+
 
 /* Título */
 
+
+
 .login-content h2 {
+
   font-family: Georgia, serif;
+
+
 
   font-size: clamp(17px, 2.1vw, 29px);
 
+
+
   color: #75401f;
 
+
+
   margin: 0 0 10px;
+
 }
+
+
 
 /* Divisor decorativo */
 
+
+
 .login-divider {
+
   display: flex;
+
   align-items: center;
+
   justify-content: center;
+
+
 
   gap: 12px;
 
+
+
   width: 55%;
+
   margin-bottom: 18px;
+
 }
+
+
 
 .login-divider span:not(.divider-leaf) {
+
   height: 2px;
+
   flex: 1;
 
+
+
   background: #d5a36c;
+
 }
 
+
+
 .divider-leaf {
+
   color: #729347;
+
   font-size: 16px;
+
 }
+
+
 
 /* Formulário */
 
+
+
 .login-content form {
+
   width: 100%;
 
+
+
   display: flex;
+
   flex-direction: column;
 
+
+
   gap: 10px;
+
 }
+
+
 
 /* Campos */
 
+
+
 .login-input-group {
+
   width: 100%;
+
   height: 48px;
 
+
+
   display: flex;
+
   align-items: center;
 
+
+
   border: 2px solid #dfbd98;
+
   border-radius: 20px;
+
+
 
   background: #fff6e5;
 
+
+
   padding: 0 16px;
 
+
+
   transition: 0.2s;
+
 }
+
+
 
 .login-input-group:focus-within {
+
   border-color: #a8794d;
+
 }
+
+
 
 .input-icon {
+
   font-size: 20px;
+
   color: #92572e;
 
+
+
   margin-right: 14px;
+
 }
 
+
+
 .login-input-group input {
+
   width: 100%;
+
   height: 100%;
 
+
+
   border: none;
+
   outline: none;
+
+
 
   background: transparent;
 
+
+
   color: #704325;
+
   font-size: 16px;
 
+
+
   font-family: inherit;
+
 }
 
+
+
 .login-input-group input::placeholder {
+
   color: #b18c6b;
+
 }
+
+
 
 /* Esqueceu a senha */
 
+
+
 .forgot-password {
+
   display: flex;
+
   justify-content: flex-end;
 
+
+
   margin-top: -3px;
+
 }
+
+
 
 .forgot-password a {
+
   color: #58753d;
 
+
+
   font-size: 13px;
+
   font-weight: bold;
 
+
+
   text-decoration: none;
+
 }
+
+
 
 /* Botão entrar */
 
+
+
 .login-button {
+
   width: 80%;
+
   align-self: center;
+
+
 
   padding: 13px;
 
+
+
   border: 2px solid #607d37;
+
   border-radius: 30px;
 
+
+
   background: #789c42;
+
   color: white;
 
+
+
   font-size: 18px;
+
   font-weight: bold;
+
+
 
   cursor: pointer;
 
+
+
   transition: 0.3s;
+
 }
+
+
 
 .login-button span {
+
   margin-right: 10px;
+
 }
+
+
 
 .login-button:hover {
+
   background: #628436;
+
   transform: scale(1.02);
+
 }
 
+
+
 .login-button:disabled {
+
   opacity: 0.7;
+
   cursor: not-allowed;
+
 }
+
+
 
 /* Separador OU */
 
+
+
 .login-or {
+
   display: flex;
+
   align-items: center;
+
   justify-content: center;
+
+
 
   gap: 12px;
 
+
+
   color: #b28a64;
+
   font-weight: bold;
+
   font-size: 14px;
+
 }
+
+
 
 .login-or span {
+
   height: 2px;
+
   flex: 1;
 
+
+
   background: #e6c69e;
+
 }
+
+
 
 /* Criar conta */
 
+
+
 .register-button {
+
   width: 80%;
+
   align-self: center;
+
+
 
   padding: 12px;
 
+
+
   border: 2px solid #87451e;
+
   border-radius: 30px;
+
+
 
   color: #78401e;
 
+
+
   font-size: 16px;
+
   font-weight: bold;
+
+
 
   text-decoration: none;
 
+
+
   display: flex;
+
   justify-content: center;
+
   align-items: center;
+
   gap: 12px;
 
+
+
   transition: 0.3s;
+
 }
 
+
+
 .register-button:hover {
+
   background: #f6dfbb;
+
 }
+
+
 
 /* Jogar como convidado */
 
+
+
 .guest-button {
+
   margin-top: 10px;
 
+
+
   border: none;
+
   background: transparent;
+
+
 
   color: #78401e;
 
+
+
   font-size: 14px;
+
   font-weight: bold;
 
+
+
   cursor: pointer;
+
 }
 
+
+
 .guest-button span {
+
   font-size: 23px;
+
   margin-left: 5px;
+
   vertical-align: -2px;
+
 }
+
+
 
 /* Mensagens de erro */
 
+
+
 .login-error {
+
   color: #b43d2c;
+
   font-size: 12px;
+
   text-align: left;
+
 }
+
+
 
 /* Responsividade */
 
+
+
 @media (max-width: 768px) {
+
   .login-container {
+
     width: min(95vw, 620px);
+
   }
+
+
 
   .login-content {
+
     top: 35%;
+
     left: 19%;
+
     width: 62%;
+
   }
+
+
 
   .login-input-group {
+
     height: 40px;
+
     border-radius: 15px;
+
   }
+
+
 
   .login-input-group input {
+
     font-size: 13px;
+
   }
+
+
 
   .login-button,
+
   .register-button {
+
     padding: 9px;
+
     font-size: 14px;
+
   }
 
+
+
   .guest-button {
+
     font-size: 11px;
+
     margin-top: 5px;
+
   }
+
 }
+
+
 
 @media (max-width: 480px) {
+
   .login-scene {
+
     padding: 10px;
+
     background-position: center;
+
   }
+
+
 
   .login-container {
+
     width: 100%;
+
   }
+
+
 
   .login-content h2 {
+
     font-size: 15px;
+
   }
+
+
 
   .login-divider {
+
     margin-bottom: 8px;
+
   }
+
+
 
   .login-content form {
+
     gap: 6px;
+
   }
+
+
 
   .login-input-group {
+
     height: 32px;
+
     padding: 0 8px;
+
   }
+
+
 
   .input-icon {
+
     font-size: 14px;
+
     margin-right: 6px;
+
   }
+
+
 
   .login-input-group input {
+
     font-size: 11px;
+
   }
+
+
 
   .forgot-password a {
+
     font-size: 9px;
+
   }
+
+
 
   .login-button,
+
   .register-button {
+
     font-size: 11px;
+
     padding: 7px;
+
   }
 
+
+
   .guest-button {
+
     font-size: 9px;
+
   }
+
 }
+
+
+
+
+
 
 
 
 
 /* =========================
 
+
+
    TELA PRINCIPAL DO JOGO
 
-========================= */
+
+
+\========================= */
+
+
+
+
 
 
 
 .game-screen {
 
+
+
   min-height: 100vh;
+
+
 
   width: 100%;
 
+
+
   position: relative;
+
+
 
   overflow: hidden;
 
 
 
+
+
+
+
   background:
+
+
 
     linear-gradient(
 
+
+
       to bottom,
+
+
 
       #a9d5e7 0%,
 
+
+
       #d7e9c4 45%,
 
+
+
       #8ca96d 100%
+
+
 
     );
 
 
 
+
+
+
+
   display: flex;
+
+
 
   flex-direction: column;
 
+
+
 }
+
+
+
+
 
 
 
@@ -750,67 +1498,135 @@
 
 
 
+
+
+
+
 .game-header {
+
+
 
   display: flex;
 
+
+
   align-items: center;
 
+
+
   justify-content: center;
+
+
 
   gap: 12px;
 
 
 
+
+
+
+
   padding: 20px;
+
+
 
   flex-wrap: wrap;
 
+
+
   z-index: 5;
 
+
+
 }
+
+
+
+
 
 
 
 .game-header button,
 
+
+
 .resource {
+
+
 
   border: none;
 
+
+
   border-radius: 30px;
+
+
 
   padding: 13px 22px;
 
 
 
+
+
+
+
   background: #f5e4c8;
+
+
 
   color: #885b43;
 
 
 
+
+
+
+
   font-size: 16px;
+
+
 
   font-weight: bold;
 
+
+
 }
+
+
+
+
 
 
 
 .game-header button {
 
+
+
   cursor: pointer;
 
+
+
 }
+
+
+
+
 
 
 
 .settings-button {
 
+
+
   font-size: 21px !important;
 
+
+
 }
+
+
+
+
 
 
 
@@ -818,17 +1634,35 @@
 
 
 
+
+
+
+
 .garden-area {
+
+
 
   flex: 1;
 
+
+
   display: flex;
+
+
 
   align-items: center;
 
+
+
   justify-content: center;
 
+
+
   position: relative;
+
+
+
+
 
 
 
@@ -836,75 +1670,151 @@
 
 
 
+
+
+
+
   background:
+
+
 
     radial-gradient(
 
+
+
       ellipse at 50% 100%,
+
+
 
       #789d59 0%,
 
+
+
       #a7c27d 55%,
+
+
 
       transparent 75%
 
+
+
     );
 
+
+
 }
+
+
+
+
 
 
 
 .plots-container {
 
+
+
   width: 90%;
+
+
 
   display: flex;
 
+
+
   justify-content: center;
+
+
 
   align-items: center;
 
+
+
   gap: 25px;
 
+
+
   flex-wrap: wrap;
+
+
 
 }
 
 
 
+
+
+
+
 .plot {
 
+
+
   width: 125px;
+
+
 
   height: 120px;
 
 
 
+
+
+
+
   border: 9px solid #9b6039;
+
+
 
   border-radius: 12px;
 
 
 
+
+
+
+
   background:
+
+
 
     linear-gradient(
 
+
+
       145deg,
+
+
 
       #704328,
 
+
+
       #98633d
+
+
 
     );
 
 
 
+
+
+
+
   box-shadow:
+
+
 
     inset 0 5px 10px #442818,
 
+
+
     0 8px 0 #70472f;
+
+
+
+
 
 
 
@@ -912,59 +1822,119 @@
 
 
 
+
+
+
+
   display: flex;
 
+
+
   align-items: center;
+
+
 
   justify-content: center;
 
 
 
+
+
+
+
   transition: 0.2s;
 
+
+
 }
+
+
+
+
 
 
 
 .plot:hover {
 
+
+
   transform: translateY(-5px);
 
+
+
 }
+
+
+
+
 
 
 
 .plot.selected {
 
+
+
   outline: 4px solid #e9e4a5;
 
+
+
 }
+
+
+
+
 
 
 
 .plant {
 
+
+
   font-size: 45px;
 
+
+
 }
+
+
+
+
 
 
 
 .selection-message {
 
+
+
   position: absolute;
+
+
 
   bottom: 12px;
 
+
+
   background: #fff5df;
+
+
 
   color: #76513d;
 
+
+
   padding: 9px 18px;
+
+
 
   border-radius: 20px;
 
+
+
 }
+
+
+
+
 
 
 
@@ -972,55 +1942,111 @@
 
 
 
+
+
+
+
 .seed-panel {
+
+
 
   position: absolute;
 
+
+
   left: 20px;
+
+
 
   top: 150px;
 
 
 
+
+
+
+
   background: #f1dfc6;
 
+
+
   padding: 15px;
+
+
 
   border-radius: 18px;
 
 
 
+
+
+
+
   text-align: center;
+
+
 
   color: #855d43;
 
+
+
 }
+
+
+
+
 
 
 
 .seed-panel h3 {
 
+
+
   font-size: 16px;
 
+
+
 }
+
+
+
+
 
 
 
 .seed-item {
 
+
+
   font-size: 35px;
+
+
 
   margin: 10px;
 
+
+
 }
+
+
+
+
 
 
 
 .seed-panel p {
 
+
+
   font-size: 11px;
 
+
+
 }
+
+
+
+
 
 
 
@@ -1028,107 +2054,215 @@
 
 
 
+
+
+
+
 .shop-panel {
+
+
 
   position: absolute;
 
+
+
   top: 120px;
 
+
+
   right: 20px;
+
+
 
   z-index: 8;
 
 
 
+
+
+
+
   width: 190px;
+
+
 
   padding: 20px;
 
 
 
+
+
+
+
   background: #f1dfc6;
+
+
 
   border-radius: 25px;
 
 
 
+
+
+
+
   color: #855d43;
+
+
 
   text-align: center;
 
 
 
+
+
+
+
   box-shadow: 0 5px 20px #0002;
 
+
+
 }
+
+
+
+
 
 
 
 .shop-panel h2 {
 
+
+
   font-size: 19px;
+
+
 
   margin-bottom: 15px;
 
+
+
 }
+
+
+
+
 
 
 
 .shop-item {
 
+
+
   background: #fff3df;
+
+
 
   padding: 12px;
 
+
+
   margin-bottom: 12px;
+
+
 
   border-radius: 15px;
 
+
+
 }
+
+
+
+
 
 
 
 .shop-item span {
 
+
+
   font-size: 38px;
 
+
+
 }
+
+
+
+
 
 
 
 .shop-item p {
 
+
+
   font-size: 13px;
 
+
+
 }
+
+
+
+
 
 
 
 .shop-item strong {
 
+
+
   display: block;
+
+
 
   margin-top: 8px;
 
+
+
 }
+
+
+
+
 
 
 
 .shop-panel button {
 
+
+
   border: none;
+
+
 
   background: #82966b;
 
+
+
   color: white;
+
+
 
   border-radius: 20px;
 
+
+
   padding: 9px;
+
+
 
   cursor: pointer;
 
+
+
 }
+
+
+
+
 
 
 
@@ -1136,59 +2270,119 @@
 
 
 
+
+
+
+
 .garden-menu {
+
+
 
   position: absolute;
 
+
+
   top: 90px;
 
+
+
   left: 20px;
+
+
 
   z-index: 8;
 
 
 
+
+
+
+
   background: #f1dfc6;
 
+
+
   border-radius: 20px;
+
+
 
   padding: 20px;
 
 
 
+
+
+
+
   color: #855d43;
 
+
+
 }
+
+
+
+
 
 
 
 .garden-option {
 
+
+
   display: flex;
+
+
 
   flex-direction: column;
 
+
+
   align-items: center;
+
+
 
   padding: 15px;
 
+
+
 }
+
+
+
+
 
 
 
 .garden-option span {
 
+
+
   font-size: 40px;
 
+
+
 }
+
+
+
+
 
 
 
 .garden-option.locked {
 
+
+
   opacity: 0.6;
 
+
+
 }
+
+
+
+
 
 
 
@@ -1196,119 +2390,239 @@
 
 
 
+
+
+
+
 .game-toolbar {
+
+
 
   display: flex;
 
+
+
   align-items: center;
 
+
+
   justify-content: center;
+
+
 
   gap: 12px;
 
 
 
+
+
+
+
   padding: 15px;
+
+
 
   margin: 0 auto 15px;
 
 
 
+
+
+
+
   background: #f1dfc6;
+
+
 
   border-radius: 30px;
 
 
 
+
+
+
+
   z-index: 5;
 
+
+
 }
+
+
+
+
 
 
 
 .tool {
 
+
+
   border: none;
 
+
+
   background: transparent;
+
+
 
   color: #855d43;
 
 
 
+
+
+
+
   display: flex;
 
+
+
   flex-direction: column;
+
+
 
   align-items: center;
 
 
 
+
+
+
+
   gap: 5px;
+
+
 
   padding: 10px;
 
 
 
+
+
+
+
   border-radius: 15px;
+
+
 
   cursor: pointer;
 
+
+
 }
+
+
+
+
 
 
 
 .tool span {
 
+
+
   font-size: 30px;
 
+
+
 }
+
+
+
+
 
 
 
 .tool small {
 
+
+
   font-size: 12px;
+
+
 
   font-weight: bold;
 
+
+
 }
+
+
+
+
 
 
 
 .tool.active {
 
+
+
   background: #d6c29f;
 
+
+
 }
+
+
+
+
 
 
 
 .exit-game {
 
+
+
   position: absolute;
 
+
+
   bottom: 25px;
+
+
 
   right: 20px;
 
 
 
+
+
+
+
   color: #fff;
 
+
+
   background: #82966b;
+
+
 
   padding: 10px 18px;
 
 
 
+
+
+
+
   border-radius: 20px;
+
+
 
   text-decoration: none;
 
+
+
   z-index: 6;
 
+
+
 }
+
+
+
+
 
 
 
@@ -1316,173 +2630,349 @@
 
 
 
+
+
+
+
 @media (max-width: 650px) {
+
+
 
   .plots-container {
 
+
+
     gap: 15px;
 
+
+
   }
+
+
+
+
 
 
 
   .plot {
 
+
+
     width: 95px;
+
+
 
     height: 95px;
 
+
+
   }
+
+
+
+
 
 
 
   .seed-panel {
 
+
+
     position: relative;
+
+
 
     top: auto;
 
+
+
     left: auto;
+
+
 
     margin: 10px auto;
 
+
+
   }
+
+
+
+
 
 
 
   .game-toolbar {
 
+
+
     flex-wrap: wrap;
+
+
 
     width: 95%;
 
+
+
     gap: 5px;
 
+
+
   }
+
+
+
+
 
 
 
   .tool {
 
+
+
     padding: 7px;
 
+
+
   }
+
+
+
+
 
 
 
   .shop-panel {
 
+
+
     right: 10px;
+
+
 
     width: 160px;
 
+
+
   }
 
+
+
 }
+
+
 
 .form-error {
 
+
+
   color: #b94b4b;
+
+
 
   font-size: 12px;
 
+
+
   margin: 4px 0 10px;
 
+
+
 }
+
+
+
+
 
 
 
 .auth-button:disabled {
 
+
+
   opacity: 0.6;
+
+
 
   cursor: not-allowed;
 
+
+
 }
+
+
+
+
 
 
 
 /* SEMENTE SELECIONADA */
 
+
+
 .seed-item.active {
+
+
 
   outline: 3px solid #76a85b;
 
+
+
   transform: scale(1.05);
 
+
+
 }
+
+
+
+
 
 
 
 /* ANIMAÇÃO DAS PLANTAS */
 
+
+
 .plant {
+
+
 
   display: inline-block;
 
+
+
   transition: transform 0.3s ease;
 
+
+
 }
+
+
+
+
 
 
 
 .plot.selected .plant {
 
+
+
   transform: scale(1.2);
 
+
+
 }
+
+
+
+
 
 
 
 /* ANIMAÇÃO DE CRESCIMENTO */
 
+
+
 .plot.sprout .plant,
+
+
 
 .plot.grown .plant {
 
+
+
   animation: growPlant 0.5s ease;
 
+
+
 }
+
+
+
+
 
 
 
 @keyframes growPlant {
 
+
+
   0% {
+
+
 
     transform: scale(0.5);
 
+
+
     opacity: 0.4;
 
+
+
   }
+
+
+
+
 
 
 
   100% {
 
+
+
     transform: scale(1);
+
+
 
     opacity: 1;
 
+
+
   }
 
+
+
 }
+
+
+
+
 
 
 
 /* MENSAGEM DE AÇÃO */
 
+
+
 .selection-message {
+
+
 
   text-align: center;
 
+
+
   font-weight: bold;
+
+
 
   color: #527c43;
 
+
+
   margin-top: 15px;
 
+
+
 }
+
+
+
+
+
+
 
 
 
@@ -1492,45 +2982,89 @@
 
 
 
+
+
+
+
 .reset-button {
+
+
 
   background: #fff0e8;
 
+
+
   color: #a6533d;
+
+
 
   border: 2px solid #e8b5a2;
 
+
+
   border-radius: 12px;
+
+
 
   padding: 9px 14px;
 
+
+
   font-weight: bold;
+
+
 
   cursor: pointer;
 
+
+
   transition: 0.2s ease;
 
+
+
 }
+
+
+
+
 
 
 
 .reset-button:hover {
 
+
+
   background: #f9ded2;
+
+
 
   transform: scale(1.03);
 
+
+
 }
+
+
+
+
 
 
 
 .reset-button:disabled {
 
+
+
   opacity: 0.6;
+
+
 
   cursor: not-allowed;
 
+
+
   transform: none;
+
+
 
 }
 
@@ -1538,287 +3072,579 @@
 
 
 
+
+
+
+
+
+
 /* ================================
+
+
 
    AVISOS CENTRALIZADOS
 
-================================ */
+
+
+\================================ */
+
+
+
+
 
 
 
 .modal-overlay {
 
+
+
   position: fixed;
+
+
 
   inset: 0;
 
+
+
   background: rgba(35, 48, 31, 0.60);
+
+
 
   display: flex;
 
+
+
   justify-content: center;
+
+
 
   align-items: center;
 
+
+
   z-index: 9999;
+
+
 
   padding: 20px;
 
+
+
 }
+
+
+
+
 
 
 
 .game-modal {
 
+
+
   width: 100%;
+
+
 
   max-width: 420px;
 
+
+
   background: #fffdf5;
+
+
 
   border: 3px solid #b7cf9d;
 
+
+
   border-radius: 24px;
+
+
 
   padding: 32px 26px;
 
+
+
   text-align: center;
+
+
 
   box-shadow: 0 15px 45px rgba(0, 0, 0, 0.25);
 
+
+
   animation: modalAppear 0.25s ease;
 
+
+
 }
+
+
+
+
 
 
 
 .modal-icon {
 
+
+
   font-size: 56px;
+
+
 
   margin-bottom: 12px;
 
+
+
 }
+
+
+
+
 
 
 
 .game-modal h2 {
 
+
+
   color: #537b43;
+
+
 
   font-size: 24px;
 
+
+
   margin: 0 0 12px;
 
+
+
 }
+
+
+
+
 
 
 
 .game-modal p {
 
+
+
   color: #65705b;
+
+
 
   font-size: 15px;
 
+
+
   line-height: 1.6;
+
+
 
   margin: 0 0 25px;
 
+
+
 }
+
+
+
+
 
 
 
 .modal-buttons {
 
+
+
   display: flex;
+
+
 
   justify-content: center;
 
+
+
   gap: 12px;
+
+
 
   flex-wrap: wrap;
 
+
+
 }
+
+
+
+
 
 
 
 .modal-confirm,
 
+
+
 .modal-cancel {
+
+
 
   border: 0;
 
+
+
   border-radius: 12px;
+
+
 
   padding: 12px 20px;
 
+
+
   font-weight: bold;
+
+
 
   cursor: pointer;
 
+
+
   transition: 0.2s;
 
+
+
 }
+
+
+
+
 
 
 
 .modal-confirm {
 
+
+
   background: #78a85d;
+
+
 
   color: white;
 
+
+
 }
+
+
+
+
 
 
 
 .modal-confirm:hover {
 
+
+
   background: #628e49;
 
+
+
 }
+
+
+
+
 
 
 
 .modal-cancel {
 
+
+
   background: #eee9dc;
+
+
 
   color: #69634f;
 
+
+
 }
+
+
+
+
 
 
 
 .modal-cancel:hover {
 
+
+
   background: #e2dac8;
 
+
+
 }
+
+
+
+
 
 
 
 .modal-confirm:disabled,
 
+
+
 .modal-cancel:disabled {
+
+
 
   opacity: 0.6;
 
+
+
   cursor: not-allowed;
 
+
+
 }
+
+
+
+
 
 
 
 @keyframes modalAppear {
 
+
+
   from {
+
+
 
     opacity: 0;
 
+
+
     transform: scale(0.9);
 
+
+
   }
+
+
+
+
 
 
 
   to {
 
+
+
     opacity: 1;
+
+
 
     transform: scale(1);
 
+
+
   }
+
+
 
 }
 
 
 
+
+
+
+
 /* ================================
+
+
 
    DREAM GARDEN
 
-================================ */
+
+
+\================================ */
+
+
+
+
 
 
 
 .garden-option.unlocked {
 
+
+
   border: 2px solid #a5c98b;
+
+
 
   background: #f0f8e9;
 
+
+
 }
+
+
+
+
 
 
 
 .garden-option.locked {
 
+
+
   opacity: 0.65;
 
+
+
 }
+
+
+
+
 
 
 
 .unlocked-label {
 
+
+
   display: block;
+
+
 
   color: #548c4d;
 
+
+
   font-weight: bold;
 
+
+
   margin-top: 6px;
+
+
 
 }
 
 
 
+
+
+
+
 /* ================================
+
+
 
    MENSAGEM DO JARDIM
 
-================================ */
+
+
+\================================ */
+
+
+
+
 
 
 
 .garden-message {
 
+
+
   text-align: center;
+
+
 
   color: #537b43;
 
+
+
   font-weight: 600;
+
+
 
   margin: 20px auto;
 
+
+
 }
+
+
+
+
 
 
 
 /* ================================
 
+
+
    CARREGAMENTO
 
-================================ */
+
+
+\================================ */
+
+
+
+
 
 
 
 .garden-loading {
 
+
+
   min-height: 100vh;
+
+
 
   display: flex;
 
+
+
   justify-content: center;
+
+
 
   align-items: center;
 
+
+
   background: #f5f3e8;
+
+
 
   color: #537b43;
 
+
+
 }
+
+
+
+
+
+
 
 
 
@@ -1826,11 +3652,21 @@
 
 /* ==========================================
 
+
+
    CORREÇÃO DO LAYOUT - GARDENIA
+
+
 
    Compatibilidade com o Garden.jsx atual
 
-========================================== */
+
+
+\========================================== */
+
+
+
+
 
 
 
@@ -1840,75 +3676,155 @@
 
 
 
+
+
+
+
+
+
 .garden-screen {
+
+
 
   min-height: 100vh;
 
+
+
   width: 100%;
 
+
+
   position: relative;
+
+
 
   overflow-x: hidden;
 
 
 
+
+
+
+
   background-image:
+
+
 
     linear-gradient(
 
+
+
       rgba(255, 255, 255, 0.08),
+
+
 
       rgba(255, 255, 255, 0.08)
 
+
+
     ),
+
+
 
     url('./assets/fundo-jardim.png');
 
 
 
+
+
+
+
   background-size: cover;
+
+
 
   background-position: center;
 
+
+
   background-repeat: no-repeat;
+
+
 
   background-attachment: fixed;
 
 
 
+
+
+
+
   display: flex;
+
+
 
   flex-direction: column;
 
+
+
   box-sizing: border-box;
+
+
 
   padding-bottom: 35px;
 
+
+
 }
+
+
+
+
 
 
 
 .seed-panel,
 
+
+
 .tools-panel,
+
+
 
 .shop-panel {
 
+
+
   background: rgba(255, 243, 223, 0.94);
+
+
 
   backdrop-filter: blur(4px);
 
+
+
   border: 2px solid rgba(255, 255, 255, 0.65);
 
+
+
 }
+
+
+
+
 
 
 
 .garden-message {
 
+
+
   background: rgba(255, 253, 239, 0.92);
 
+
+
 }
+
+
+
+
+
+
 
 
 
@@ -1918,67 +3834,135 @@
 
 
 
+
+
+
+
 .garden-header {
+
+
 
   display: flex;
 
+
+
   align-items: center;
+
+
 
   justify-content: center;
 
+
+
   gap: 15px;
+
+
 
   padding: 20px;
 
+
+
   flex-wrap: wrap;
+
+
 
   z-index: 5;
 
+
+
 }
+
+
+
+
 
 
 
 .garden-logo {
 
+
+
   color: #536b45;
+
+
 
   font-family: Georgia, serif;
 
+
+
   font-size: 22px;
+
+
 
   font-weight: bold;
 
+
+
   text-decoration: none;
 
+
+
 }
+
+
+
+
 
 
 
 .resources {
 
+
+
   display: flex;
+
+
 
   gap: 10px;
 
+
+
 }
+
+
+
+
 
 
 
 .resources span {
 
+
+
   background: #f5e4c8;
+
+
 
   color: #885b43;
 
+
+
   border-radius: 30px;
+
+
 
   padding: 12px 20px;
 
+
+
   font-size: 16px;
+
+
 
   font-weight: bold;
 
+
+
 }
+
+
+
+
 
 
 
@@ -1986,85 +3970,171 @@
 
 
 
+
+
+
+
 .garden-content {
+
+
 
   flex: 1;
 
+
+
   width: 100%;
+
+
 
   max-width: 1200px;
 
+
+
   margin: 0 auto;
+
+
 
   padding: 25px 30px;
 
+
+
   box-sizing: border-box;
+
+
 
   position: relative;
 
+
+
 }
+
+
+
+
 
 
 
 .garden-top {
 
+
+
   display: flex;
+
+
 
   align-items: center;
 
+
+
   justify-content: space-between;
+
+
 
   gap: 20px;
 
+
+
   margin-bottom: 25px;
 
+
+
 }
+
+
+
+
 
 
 
 .garden-top h1 {
 
+
+
   color: #536b45;
+
+
 
   font-family: Georgia, serif;
 
+
+
   font-size: 36px;
+
+
 
   margin: 0 0 10px;
 
+
+
 }
+
+
+
+
 
 
 
 .garden-top p {
 
+
+
   color: #657b4e;
+
+
 
   font-size: 16px;
 
+
+
   margin: 0;
 
+
+
 }
+
+
+
+
 
 
 
 .garden-menu-button {
 
+
+
   border: none;
+
+
 
   border-radius: 25px;
 
+
+
   padding: 13px 22px;
+
+
 
   background: #82966b;
 
+
+
   color: white;
+
+
 
   font-weight: bold;
 
+
+
   cursor: pointer;
 
+
+
 }
+
+
+
+
 
 
 
@@ -2072,91 +4142,183 @@
 
 
 
+
+
+
+
 .garden-menu {
+
+
 
   position: absolute;
 
+
+
   top: 85px;
+
+
 
   left: 30px;
 
+
+
   z-index: 20;
+
+
 
   background: #f1dfc6;
 
+
+
   border-radius: 20px;
+
+
 
   padding: 15px;
 
+
+
   color: #855d43;
+
+
 
   box-shadow: 0 5px 20px #0002;
 
+
+
 }
+
+
+
+
 
 
 
 .garden-option {
 
+
+
   display: flex;
+
+
 
   flex-direction: column;
 
+
+
   align-items: center;
+
+
 
   padding: 15px;
 
+
+
   border-radius: 15px;
 
+
+
 }
+
+
+
+
 
 
 
 .garden-option span {
 
+
+
   font-size: 35px;
 
+
+
 }
+
+
+
+
 
 
 
 .garden-option.active {
 
+
+
   background: #fff3df;
 
+
+
 }
+
+
+
+
 
 
 
 .garden-option.locked {
 
+
+
   opacity: 0.6;
 
+
+
 }
+
+
+
+
 
 
 
 .garden-option.unlocked {
 
+
+
   background: #f0f8e9;
+
+
 
   border: 2px solid #a5c98b;
 
+
+
 }
+
+
+
+
 
 
 
 .unlocked-label {
 
+
+
   display: block;
+
+
 
   color: #548c4d;
 
+
+
   font-weight: bold;
+
+
 
   margin-top: 6px;
 
+
+
 }
+
+
+
+
 
 
 
@@ -2164,27 +4326,55 @@
 
 
 
+
+
+
+
 .garden-message {
+
+
 
   width: fit-content;
 
+
+
   max-width: 90%;
+
+
 
   margin: 20px auto;
 
+
+
   padding: 10px 20px;
+
+
 
   border-radius: 20px;
 
+
+
   background: #fff5df;
+
+
 
   color: #527c43;
 
+
+
   text-align: center;
+
+
 
   font-weight: bold;
 
+
+
 }
+
+
+
+
 
 
 
@@ -2192,59 +4382,119 @@
 
 
 
+
+
+
+
 .plots-container {
+
+
 
   width: 100%;
 
+
+
   min-height: 260px;
+
+
 
   display: flex;
 
+
+
   align-items: center;
+
+
 
   justify-content: center;
 
+
+
   gap: 25px;
+
+
 
   flex-wrap: wrap;
 
+
+
   padding: 25px 0;
 
+
+
   box-sizing: border-box;
+
+
 
 }
 
 
 
+
+
+
+
 .plot {
+
+
 
   width: 125px;
 
+
+
   height: 120px;
 
+
+
   border: 9px solid #9b6039;
+
+
 
   border-radius: 12px;
 
 
 
+
+
+
+
   background: linear-gradient(
+
+
 
     145deg,
 
+
+
     #704328,
 
+
+
     #98633d
+
+
 
   );
 
 
 
+
+
+
+
   box-shadow:
+
+
 
     inset 0 5px 10px #442818,
 
+
+
     0 8px 0 #70472f;
+
+
+
+
 
 
 
@@ -2252,59 +4502,119 @@
 
 
 
+
+
+
+
   display: flex;
+
+
 
   flex-direction: column;
 
+
+
   align-items: center;
 
+
+
   justify-content: center;
+
+
 
   gap: 8px;
 
 
 
+
+
+
+
   transition: 0.2s;
 
+
+
 }
+
+
+
+
 
 
 
 .plot:hover {
 
+
+
   transform: translateY(-5px);
 
+
+
 }
+
+
+
+
 
 
 
 .plot.selected {
 
+
+
   outline: 4px solid #e9e4a5;
 
+
+
 }
+
+
+
+
 
 
 
 .plant-icon {
 
+
+
   display: inline-block;
+
+
 
   font-size: 45px;
 
+
+
   transition: transform 0.3s ease;
 
+
+
 }
+
+
+
+
 
 
 
 .plot small {
 
+
+
   color: white;
+
+
 
   font-weight: bold;
 
+
+
 }
+
+
+
+
 
 
 
@@ -2312,79 +4622,159 @@
 
 
 
+
+
+
+
 .game-panel {
+
+
 
   display: grid;
 
+
+
   grid-template-columns: 1fr 1fr 1fr;
+
+
 
   align-items: start;
 
+
+
   gap: 20px;
+
+
 
   margin-top: 25px;
 
+
+
 }
+
+
+
+
 
 
 
 .seed-panel,
 
+
+
 .tools-panel,
+
+
 
 .shop-panel {
 
+
+
   position: relative;
+
+
 
   top: auto;
 
+
+
   left: auto;
+
+
 
   right: auto;
 
 
 
+
+
+
+
   width: auto;
+
+
 
   padding: 20px;
 
 
 
+
+
+
+
   background: #f1dfc6;
+
+
 
   border-radius: 20px;
 
 
 
+
+
+
+
   color: #855d43;
+
+
 
   text-align: center;
 
 
 
+
+
+
+
   box-shadow: 0 5px 20px #0002;
+
+
 
   box-sizing: border-box;
 
+
+
 }
+
+
+
+
 
 
 
 .seed-panel h2,
 
+
+
 .tools-panel h2,
+
+
 
 .shop-content h2 {
 
+
+
   color: #855d43;
+
+
 
   font-family: Georgia, serif;
 
+
+
   font-size: 20px;
+
+
 
   margin: 0 0 15px;
 
+
+
 }
+
+
+
+
 
 
 
@@ -2392,45 +4782,91 @@
 
 
 
+
+
+
+
 .seed-options {
+
+
 
   display: flex;
 
+
+
   flex-direction: column;
+
+
 
   gap: 10px;
 
+
+
 }
+
+
+
+
 
 
 
 .seed-options button {
 
+
+
   border: none;
+
+
 
   border-radius: 15px;
 
+
+
   padding: 12px;
+
+
 
   background: #fff3df;
 
+
+
   color: #855d43;
+
+
 
   cursor: pointer;
 
+
+
   font-weight: bold;
 
+
+
 }
+
+
+
+
 
 
 
 .seed-options button.selected {
 
+
+
   outline: 3px solid #76a85b;
+
+
 
   background: #e8f0d9;
 
+
+
 }
+
+
+
+
 
 
 
@@ -2438,55 +4874,111 @@
 
 
 
+
+
+
+
 .tool-options {
+
+
 
   display: grid;
 
+
+
   grid-template-columns: 1fr 1fr;
+
+
 
   gap: 10px;
 
+
+
 }
+
+
+
+
 
 
 
 .tool-options button {
 
+
+
   border: none;
+
+
 
   background: #fff3df;
 
+
+
   color: #855d43;
+
+
 
   border-radius: 15px;
 
+
+
   padding: 12px 8px;
+
+
 
   cursor: pointer;
 
+
+
   font-weight: bold;
+
+
 
   transition: 0.2s;
 
+
+
 }
+
+
+
+
 
 
 
 .tool-options button:hover {
 
+
+
   background: #e8d4b5;
 
+
+
 }
+
+
+
+
 
 
 
 .tool-options button.selected {
 
+
+
   background: #d6c29f;
+
+
 
   outline: 2px solid #82966b;
 
+
+
 }
+
+
+
+
 
 
 
@@ -2494,63 +4986,127 @@
 
 
 
+
+
+
+
 .shop-button {
+
+
 
   width: 100%;
 
+
+
   border: none;
+
+
 
   background: #82966b;
 
+
+
   color: white;
+
+
 
   border-radius: 20px;
 
+
+
   padding: 12px;
+
+
 
   cursor: pointer;
 
+
+
   font-weight: bold;
 
+
+
 }
+
+
+
+
 
 
 
 .shop-content {
 
+
+
   margin-top: 15px;
 
+
+
 }
+
+
+
+
 
 
 
 .shop-content p {
 
+
+
   font-size: 14px;
+
+
 
   margin: 12px 0;
 
+
+
 }
+
+
+
+
 
 
 
 .shop-content button {
 
+
+
   border: none;
+
+
 
   background: #fff3df;
 
+
+
   color: #855d43;
+
+
 
   border-radius: 15px;
 
+
+
   padding: 10px;
+
+
 
   cursor: pointer;
 
+
+
   font-weight: bold;
 
+
+
 }
+
+
+
+
 
 
 
@@ -2558,31 +5114,63 @@
 
 
 
+
+
+
+
 .garden-footer {
+
+
 
   text-align: center;
 
+
+
   padding: 20px;
 
+
+
 }
+
+
+
+
 
 
 
 .garden-footer a {
 
+
+
   color: white;
+
+
 
   background: #82966b;
 
+
+
   padding: 10px 20px;
+
+
 
   border-radius: 20px;
 
+
+
   text-decoration: none;
+
+
 
   font-weight: bold;
 
+
+
 }
+
+
+
+
 
 
 
@@ -2590,21 +5178,43 @@
 
 
 
+
+
+
+
 .garden-loading {
+
+
 
   min-height: 100vh;
 
+
+
   display: flex;
+
+
 
   justify-content: center;
 
+
+
   align-items: center;
+
+
 
   background: #f5f4e9;
 
+
+
   color: #536b45;
 
+
+
 }
+
+
+
+
 
 
 
@@ -2612,87 +5222,175 @@
 
 
 
+
+
+
+
 @media (max-width: 800px) {
+
+
 
   .game-panel {
 
+
+
     grid-template-columns: 1fr 1fr;
 
+
+
   }
+
+
+
+
 
 
 
   .garden-content {
 
+
+
     padding: 20px;
 
+
+
   }
+
+
+
+
 
 
 
   .plots-container {
 
+
+
     gap: 18px;
+
+
 
   }
 
+
+
 }
+
+
+
+
 
 
 
 @media (max-width: 550px) {
 
+
+
   .garden-top {
+
+
 
     flex-direction: column;
 
+
+
     align-items: flex-start;
 
+
+
   }
+
+
+
+
 
 
 
   .garden-top h1 {
 
+
+
     font-size: 28px;
 
+
+
   }
+
+
+
+
 
 
 
   .game-panel {
 
+
+
     grid-template-columns: 1fr;
 
+
+
   }
+
+
+
+
 
 
 
   .garden-header {
 
+
+
     flex-direction: column;
 
+
+
   }
+
+
+
+
 
 
 
   .plot {
 
+
+
     width: 95px;
+
+
 
     height: 95px;
 
+
+
   }
+
+
+
+
 
 
 
   .garden-menu {
 
+
+
     left: 10px;
+
+
 
   }
 
+
+
 }
+
+
+
+
 
 
 
@@ -2700,577 +5398,1427 @@
 
 
 
+
+
+
+
 .garden-screen button {
+
+
 
   font-family: Arial, sans-serif;
 
+
+
 }
+
+
+
+
 
 
 
 .garden-screen button:focus-visible {
 
+
+
   outline: 3px solid #76a85b;
+
+
 
   outline-offset: 3px;
 
+
+
 }
+
+
+
+
 
 
 
 /* Indicação do jardim atualmente selecionado */
 
+
+
 .garden-option.active {
+
+
 
   background: #dce9c9;
 
+
+
   border: 2px solid #82966b;
+
+
 
   box-shadow: 0 2px 8px rgba(70, 95, 55, 0.18);
 
+
+
 }
+
+
+
+
 
 
 
 /* Jardim bloqueado */
 
+
+
 .garden-option.locked {
+
+
 
   opacity: 0.6;
 
+
+
   border: none;
+
+
 
   box-shadow: none;
 
+
+
 }
+
+
+
+
 
 
 
 /* Fundo exclusivo do Dream Garden */
 
+
+
 .garden-screen.dream-garden-screen {
+
+
 
   background-image:
 
+
+
     linear-gradient(
+
+
 
       rgba(255, 255, 255, 0.05),
 
+
+
       rgba(255, 255, 255, 0.05)
 
+
+
     ),
+
+
 
     url('./assets/fundo-dream-garden.png');
 
 
 
+
+
+
+
   background-size: cover;
+
+
 
   background-position: center;
 
+
+
   background-repeat: no-repeat;
+
+
 
   background-attachment: fixed;
 
+
+
 }
+
+
+
+
 
 
 
 .garden-screen {
 
+
+
   min-height: 100vh;
+
+
 
   width: 100%;
 
+
+
   position: relative;
+
+
 
   overflow-x: hidden;
 
 
 
+
+
+
+
   /* FUNDO ORIGINAL DO JARDIM */
+
+
 
   background-image:
 
+
+
     linear-gradient(
+
+
 
       rgba(255, 255, 255, 0.08),
 
+
+
       rgba(255, 255, 255, 0.08)
 
+
+
     ),
+
+
 
     url('./assets/fundo-garden1.png');
 
 
 
+
+
+
+
   background-size: cover;
+
+
 
   background-position: center;
 
+
+
   background-repeat: no-repeat;
+
+
 
   background-attachment: fixed;
 
 
 
+
+
+
+
   display: flex;
+
+
 
   flex-direction: column;
 
+
+
   box-sizing: border-box;
+
+
 
   padding-bottom: 35px;
 
+
+
 }
+
+
+
 
 
 /* LOGO EM IMAGEM NO CABEÇALHO */
+
 .garden-logo {
+
   display: flex;
+
   align-items: center;
+
   justify-content: center;
+
   flex: 0 0 auto;
+
   position: relative;
+
   padding-top: 22px;
+
   line-height: 0;
+
 }
+
+
+
 
 
 .garden-logo img {
+
   display: block;
+
   width: 20vw;
+
   height: auto;
+
   max-width: 300px;
+
   min-width: 190px;
+
   object-fit: contain;
+
   margin-top: -50px;
+
 }
+
+
 
 @media (max-width: 550px) {
+
   .garden-logo img {
+
     width: 190px;
+
     height: auto;
+
   }
+
 }
 
+
+
 /* =====================================
+
    NOVO SISTEMA DE TEMPO DOS CANTEIROS
-===================================== */
+
+\===================================== */
+
+
 
 /* Agrupamento do canteiro e sua barra */
 
+
+
 .plot-wrapper {
+
   display: flex;
+
   flex-direction: column;
+
   align-items: center;
+
   gap: 12px;
+
 }
+
+
 
 /* Barra de tempo */
 
+
+
 .plant-timer {
+
   width: 125px;
+
   height: 12px;
+
   padding: 2px;
+
   box-sizing: border-box;
 
+
+
   background: #f5e8d5;
+
   border: 1px solid #9b754d;
+
   border-radius: 20px;
 
+
+
   overflow: hidden;
+
   box-shadow: 0 2px 4px #0002;
+
 }
+
+
 
 /* Fundo da barra */
 
+
+
 .plant-timer-track {
+
   width: 100%;
+
   height: 100%;
+
   border-radius: 20px;
+
   overflow: hidden;
+
 }
+
+
 
 /* Parte que diminui */
 
+
+
 .plant-timer-fill {
+
   height: 100%;
+
   border-radius: 20px;
 
+
+
   transition:
+
     width 0.25s linear,
+
     background-color 0.5s ease;
+
 }
+
+
 
 /* Contador de plantas mortas */
 
+
+
 .dead-plants-counter {
+
   background: #f5d9d5 !important;
+
   color: #a34238 !important;
+
 }
+
+
 
 /* Botão de perfil */
 
+
+
 .profile-button {
+
   display: inline-flex;
+
   align-items: center;
+
   justify-content: center;
+
+
 
   padding: 12px 20px;
 
+
+
   background: #82966b;
+
   color: white;
+
+
 
   border-radius: 25px;
 
+
+
   font-size: 15px;
+
   font-weight: bold;
+
+
 
   text-decoration: none;
 
+
+
   transition: 0.2s ease;
+
 }
 
+
+
 .profile-button:hover {
+
   background: #657e50;
+
   transform: translateY(-2px);
+
 }
+
+
 
 /* Responsividade da barra */
 
+
+
 @media (max-width: 550px) {
+
   .plant-timer {
+
     width: 95px;
+
   }
+
+
 
   .plot-wrapper {
+
     gap: 10px;
+
   }
 
+
+
   .profile-button {
+
     padding: 10px 16px;
+
   }
+
 }
+
+
+
 
 
 /* =====================================
+
    SISTEMA DE PAUSA - GARDENIA
-===================================== */
+
+\===================================== */
+
+
 
 /* Botão Pause no cabeçalho */
 
+
+
 .pause-button {
+
   padding: 11px 24px;
+
   border: 2px solid rgba(255, 255, 255, 0.8);
+
   border-radius: 25px;
+
   background: #526b91;
+
   color: white;
+
   font-size: 15px;
+
   font-weight: bold;
+
   cursor: pointer;
+
   transition: 0.2s ease;
+
 }
 
+
+
 .pause-button:hover {
+
   background: #3e567c;
+
   transform: translateY(-2px);
+
 }
+
+
 
 /* Fundo escurecido da pausa */
 
+
+
 .pause-overlay {
+
   position: fixed;
+
   inset: 0;
+
   z-index: 10000;
 
+
+
   display: flex;
+
   align-items: center;
+
   justify-content: center;
 
+
+
   background: rgba(20, 145, 76, 0.78);
+
   backdrop-filter: blur(2px);
+
 }
+
+
 
 /* Conteúdo central */
 
+
+
 .pause-content {
+
   width: min(90%, 420px);
 
+
+
   display: flex;
+
   flex-direction: column;
+
   align-items: center;
+
   justify-content: center;
 
+
+
   gap: 32px;
+
   padding: 35px 25px;
 
+
+
   text-align: center;
+
   color: white;
+
 }
+
+
 
 /* Título */
 
+
+
 .pause-content h1 {
+
   margin: 0 0 12px;
 
+
+
   color: white;
+
   font-family: Georgia, serif;
+
   font-style: italic;
+
   font-size: clamp(32px, 6vw, 46px);
 
+
+
   text-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+
 }
+
+
 
 /* Botões */
 
+
+
 .pause-resume,
+
 .pause-exit {
+
   width: 180px;
+
   padding: 12px;
 
+
+
   border: none;
+
   border-radius: 12px;
 
+
+
   background: transparent;
+
   color: white;
 
+
+
   font-family: inherit;
+
   font-size: 20px;
+
   font-weight: 600;
 
+
+
   text-align: center;
+
   text-decoration: none;
 
+
+
   cursor: pointer;
+
   transition: 0.2s ease;
+
 }
+
+
 
 .pause-resume:hover,
+
 .pause-exit:hover {
+
   background: rgba(255, 255, 255, 0.16);
+
   transform: scale(1.05);
+
 }
 
+
+
 .pause-exit {
+
   margin-top: -12px;
+
 }
+
+
+
 
 
 /* =====================================================
+
    GARDENIA — BARRA DE FERRAMENTAS (AJUSTE FINAL)
+
    As imagens PNG já contêm as plaquinhas com os nomes.
+
    Portanto, os spans do JSX ficam ocultos para não duplicar.
-===================================================== */
+
+\===================================================== */
+
+
 
 .garden-screen .game-panel {
+
   position: fixed;
+
   left: 50%;
+
   bottom: 12px;
+
   transform: translateX(-50%);
+
   z-index: 40;
 
+
+
   display: flex;
+
   align-items: center;
+
   justify-content: center;
 
+
+
   width: auto;
+
   max-width: calc(100vw - 24px);
+
   margin: 0;
+
   padding: 0;
 
+
+
   background: transparent;
+
   box-shadow: none;
+
   box-sizing: border-box;
+
 }
+
+
 
 .garden-screen .tools-toolbar {
+
   position: relative;
 
+
+
   display: grid;
+
   grid-template-columns: repeat(4, 112px) 150px;
+
   align-items: center;
+
   justify-items: center;
+
   gap: 8px;
 
+
+
   width: auto;
+
   padding: 0;
+
   margin: 0;
 
+
+
   background: transparent;
+
 }
+
+
 
 /* Fundo arredondado das quatro ferramentas */
 
+
+
 .garden-screen .tools-toolbar::before {
+
   content: "";
+
   position: absolute;
 
+
+
   top: 0;
+
   bottom: 0;
+
   left: 0;
+
+
 
   width: calc(100% - 158px);
 
+
+
   background: #ead4b9;
+
+
 
   border-radius: 34px;
 
+
+
   z-index: 0;
+
 }
+
+
 
 /* Mantém os botões acima do fundo */
 
-.garden-screen .tools-toolbar > * {
+
+
+.garden-screen .tools-toolbar > \* {
+
   position: relative;
+
   z-index: 1;
+
 }
 
+
+
 .garden-screen .tool-image-button {
+
   position: relative;
+
   isolation: isolate;
+
+
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+
+
+  width: 112px;
+
+  height: 88px;
+
+  min-width: 0;
+
+  padding: 0;
+
+  margin: 0;
+
+  overflow: visible;
+
+
+
+  border: 0;
+
+  border-radius: 25px;
+
+  background: transparent;
+
+  box-shadow: none;
+
+
+
+  cursor: pointer;
+
+  transition: background-color 160ms ease;
+
+}
+
+
+
+/* PNG completo: ilustração + plaquinha original. */
+
+.garden-screen .tool-image-button img {
+
+  position: absolute;
+
+  left: 50%;
+
+  bottom: -5px;
+
+  transform: translateX(-50%);
+
+
+
+  display: block;
+
+  width: 106px;
+
+  height: 132px;
+
+  max-width: none;
+
+  object-fit: contain;
+
+  object-position: center;
+
+
+
+  pointer-events: none;
+
+  transition: transform 160ms ease;
+
+}
+
+
+
+/* Os nomes já fazem parte dos arquivos PNG. */
+
+.garden-screen .tool-image-button span {
+
+  display: none !important;
+
+}
+
+
+
+.garden-screen .tool-image-button:hover {
+
+  background: rgba(255, 255, 255, 0.22);
+
+}
+
+
+
+.garden-screen .tool-image-button:hover img {
+
+  transform: translate(-50%, -3px);
+
+}
+
+
+
+.garden-screen .tool-image-button.selected {
+
+  background: rgba(255, 255, 255, 0.28);
+
+  outline: none;
+
+  box-shadow: none;
+
+}
+
+
+
+/* Sementes: painel independente, como na imagem de referência. */
+
+.garden-screen .tool-image-button.seeds-button {
+
+  width: 150px;
+
+  height: 88px;
+
+  margin-left: 0;
+
+  border-radius: 28px;
+
+  background: #ead4b9;
+
+}
+
+
+
+.garden-screen .tool-image-button.seeds-button:hover {
+
+  background: #f0dfc9;
+
+}
+
+
+
+.garden-screen .tool-image-button.seeds-button.selected {
+
+  background: #e4d0b5;
+
+}
+
+
+
+.garden-screen .shop-content {
+
+  position: absolute;
+
+  right: 0;
+
+  bottom: calc(100% + 14px);
+
+  z-index: 45;
+
+
+
+  width: 260px;
+
+  max-width: min(90vw, 320px);
+
+  margin: 0;
+
+}
+
+
+
+/* Ajuste para notebooks e telas médias. */
+
+@media (max-width: 850px) {
+
+  .garden-screen .tools-toolbar {
+
+    grid-template-columns: repeat(4, minmax(76px, 1fr)) minmax(92px, 1.2fr);
+
+    gap: 4px;
+
+    width: min(680px, calc(100vw - 20px));
+
+  }
+
+
+
+  .garden-screen .tool-image-button,
+
+  .garden-screen .tool-image-button.seeds-button {
+
+    width: 100%;
+
+    height: 78px;
+
+  }
+
+
+
+  .garden-screen .tool-image-button img {
+
+    width: 91px;
+
+    height: 114px;
+
+    bottom: -4px;
+
+  }
+
+
+
+  .garden-screen .tools-toolbar {
+
+    background: linear-gradient(
+
+      to right,
+
+      #ead4b9 0,
+
+      #ead4b9 calc(80% - 3px),
+
+      transparent calc(80% - 3px),
+
+      transparent 100%
+
+    );
+
+  }
+
+}
+
+
+
+/* Celulares: manter os cinco botões em uma única linha. */
+
+@media (max-width: 550px) {
+
+  .garden-screen .game-panel {
+
+    bottom: 7px;
+
+    width: calc(100vw - 10px);
+
+    max-width: none;
+
+  }
+
+
+
+  .garden-screen .tools-toolbar {
+
+    width: 100%;
+
+    grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(0, 1.12fr);
+
+    gap: 2px;
+
+    padding: 0 3px;
+
+    border-radius: 23px;
+
+  }
+
+
+
+  .garden-screen .tool-image-button,
+
+  .garden-screen .tool-image-button.seeds-button {
+
+    height: 65px;
+
+    border-radius: 17px;
+
+  }
+
+
+
+  .garden-screen .tool-image-button img {
+
+    width: 75px;
+
+    height: 94px;
+
+    bottom: -3px;
+
+  }
+
+}
+
+
+
+
+
+/* =========================================
+
+   CANTEIROS COM SPRITES PNG - GARDENIA
+
+\========================================= */
+
+
+
+.garden-screen .plots-container {
+
+  width: 100%;
+
+  min-height: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: clamp(12px, 2.6vw, 34px);
+
+  flex-wrap: wrap;
+
+  padding: 25px 18px 35px;
+
+  box-sizing: border-box;
+
+  /* Desloca o conjunto de canteiros para baixo. */
+  transform: translateY(78px);
+
+}
+
+
+
+.garden-screen .plot-wrapper {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 7px;
+
+}
+
+
+
+.garden-screen .plot {
+
+  width: clamp(160px, 16vw, 200px);
+
+  height: clamp(160px, 16vw, 200px);
+
+  flex: 0 0 auto;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 0;
+
+  overflow: visible;
+
+  border: 0;
+
+  border-radius: 0;
+
+  outline: none;
+
+  background: transparent;
+
+  box-shadow: none;
+
+  cursor: pointer;
+
+  transition: transform 0.18s ease, filter 0.18s ease;
+
+}
+
+
+
+.garden-screen .plot:hover {
+
+  transform: translateY(-4px);
+
+  background: transparent;
+
+  box-shadow: none;
+
+}
+
+
+
+.garden-screen .plot.selected {
+
+  outline: none;
+
+  filter: drop-shadow(0 0 7px rgba(255, 238, 153, 0.95));
+
+}
+
+
+
+.garden-screen .plot-sprite {
+
+  display: block;
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: contain;
+
+  object-position: center;
+
+  pointer-events: none;
+
+  user-select: none;
+
+}
+
+
+
+.garden-screen .plot small,
+
+.garden-screen .plot .plant-icon {
+
+  display: none;
+
+}
+
+
+
+.garden-screen .plant-timer {
+
+  width: min(125px, 90%);
+
+}
+
+
+
+@media (max-width: 750px) {
+
+  .garden-screen .plots-container {
+
+    gap: 10px;
+
+    padding: 20px 8px 125px;
+
+    transform: translateY(42px);
+
+  }
+
+
+
+  .garden-screen .plot {
+
+    width: clamp(115px, 25vw, 155px);
+
+    height: clamp(115px, 25vw, 155px);
+
+  }
+
+}
+
+
+
+@media (max-width: 420px) {
+
+  .garden-screen .plots-container {
+
+    gap: 5px;
+
+    transform: translateY(42px);
+
+  }
+
+
+
+  .garden-screen .plot {
+
+    width: 28vw;
+
+    height: 28vw;
+
+  }
+
+}
+
+/* =========================================
+   CANTEIROS - ALINHAMENTO EM UMA ÚNICA LINHA
+========================================= */
+
+.garden-screen .plots-container {
+  width: 100%;
+  max-width: 1150px;
+
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+
+  align-items: center;
+  justify-items: center;
+
+  gap: clamp(8px, 2vw, 25px);
+
+  padding: 25px 15px 35px;
+  margin: 0 auto;
+
+  box-sizing: border-box;
+
+  /* Posicionamento vertical */
+  transform: translateY(120px);
+}
+
+/* Cada canteiro ocupa sua própria coluna */
+
+.garden-screen .plot-wrapper {
+  width: 100%;
+  min-width: 0;
 
   display: flex;
   align-items: center;
   justify-content: center;
-
-  width: 112px;
-  height: 88px;
-  min-width: 0;
-  padding: 0;
-  margin: 0;
-  overflow: visible;
-
-  border: 0;
-  border-radius: 25px;
-  background: transparent;
-  box-shadow: none;
-
-  cursor: pointer;
-  transition: background-color 160ms ease;
 }
 
-/* PNG completo: ilustração + plaquinha original. */
-.garden-screen .tool-image-button img {
-  position: absolute;
-  left: 50%;
-  bottom: -5px;
-  transform: translateX(-50%);
+/* Tamanho das imagens */
 
-  display: block;
-  width: 106px;
-  height: 132px;
-  max-width: none;
+.garden-screen .plot {
+  width: min(100%, 200px);
+  aspect-ratio: 1 / 1;
+  height: auto;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Sprite */
+
+.garden-screen .plot-sprite {
+  width: 100%;
+  height: 100%;
   object-fit: contain;
-  object-position: center;
-
-  pointer-events: none;
-  transition: transform 160ms ease;
 }
 
-/* Os nomes já fazem parte dos arquivos PNG. */
-.garden-screen .tool-image-button span {
-  display: none !important;
-}
+/* Tablets e celulares */
 
-.garden-screen .tool-image-button:hover {
-  background: rgba(255, 255, 255, 0.22);
-}
+@media (max-width: 750px) {
+  .garden-screen .plots-container {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 5px;
+    padding: 15px 8px;
 
-.garden-screen .tool-image-button:hover img {
-  transform: translate(-50%, -3px);
-}
-
-.garden-screen .tool-image-button.selected {
-  background: rgba(255, 255, 255, 0.28);
-  outline: none;
-  box-shadow: none;
-}
-
-/* Sementes: painel independente, como na imagem de referência. */
-.garden-screen .tool-image-button.seeds-button {
-  width: 150px;
-  height: 88px;
-  margin-left: 0;
-  border-radius: 28px;
-  background: #ead4b9;
-}
-
-.garden-screen .tool-image-button.seeds-button:hover {
-  background: #f0dfc9;
-}
-
-.garden-screen .tool-image-button.seeds-button.selected {
-  background: #e4d0b5;
-}
-
-.garden-screen .shop-content {
-  position: absolute;
-  right: 0;
-  bottom: calc(100% + 14px);
-  z-index: 45;
-
-  width: 260px;
-  max-width: min(90vw, 320px);
-  margin: 0;
-}
-
-/* Ajuste para notebooks e telas médias. */
-@media (max-width: 850px) {
-  .garden-screen .tools-toolbar {
-    grid-template-columns: repeat(4, minmax(76px, 1fr)) minmax(92px, 1.2fr);
-    gap: 4px;
-    width: min(680px, calc(100vw - 20px));
+    transform: translateY(60px);
   }
 
-  .garden-screen .tool-image-button,
-  .garden-screen .tool-image-button.seeds-button {
+  .garden-screen .plot {
     width: 100%;
-    height: 78px;
-  }
-
-  .garden-screen .tool-image-button img {
-    width: 91px;
-    height: 114px;
-    bottom: -4px;
-  }
-
-  .garden-screen .tools-toolbar {
-    background: linear-gradient(
-      to right,
-      #ead4b9 0,
-      #ead4b9 calc(80% - 3px),
-      transparent calc(80% - 3px),
-      transparent 100%
-    );
-  }
-}
-
-/* Celulares: manter os cinco botões em uma única linha. */
-@media (max-width: 550px) {
-  .garden-screen .game-panel {
-    bottom: 7px;
-    width: calc(100vw - 10px);
-    max-width: none;
-  }
-
-  .garden-screen .tools-toolbar {
-    width: 100%;
-    grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(0, 1.12fr);
-    gap: 2px;
-    padding: 0 3px;
-    border-radius: 23px;
-  }
-
-  .garden-screen .tool-image-button,
-  .garden-screen .tool-image-button.seeds-button {
-    height: 65px;
-    border-radius: 17px;
-  }
-
-  .garden-screen .tool-image-button img {
-    width: 75px;
-    height: 94px;
-    bottom: -3px;
   }
 }
