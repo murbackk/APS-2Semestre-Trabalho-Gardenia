@@ -1,7 +1,11 @@
+
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { useAuth } from '../context/AuthContext'
+
+import fundoLogin from '../assets/fundo-login.png'
+import placaLogin from '../assets/placa-login.png'
 
 const cadastroSchema = z.object({
   displayName: z.string()
@@ -79,82 +83,103 @@ function Cadastro() {
   }
 
   return (
-    <main className="auth-page">
-      <Link to="/" className="back-link">
-        ← Voltar
-      </Link>
+    <main
+      className="login-scene"
+      style={{ backgroundImage: `url(${fundoLogin})` }}
+    >
+      <section className="login-container">
 
-      <section className="auth-card">
-        <div className="auth-icon">🌷</div>
+        <img
+          src={placaLogin}
+          alt="Placa do Gardenia"
+          className="login-sign"
+        />
 
-        <h1>Gardenia</h1>
-        <h2>Crie sua conta!</h2>
+        <div className="login-content cadastro-content">
 
-        <p>Comece a cultivar seu próprio jardim.</p>
+          <h2>Crie sua conta!</h2>
 
-        <form onSubmit={handleSubmit}>
-          <label>Nome para o ranking</label>
+          <div className="login-divider">
+            <span></span>
+            <span className="divider-leaf">❧</span>
+            <span></span>
+          </div>
 
-          <input
-            type="text"
-            value={displayName}
-            onChange={(e) => setDisplayName(e.target.value)}
-            placeholder="Escolha seu nome"
-          />
+          <form onSubmit={handleSubmit}>
 
-          {errors.displayName && (
-            <small className="form-error">
-              {errors.displayName}
-            </small>
-          )}
+            <div className="login-input-group">
+              <span className="input-icon">🌷</span>
+              <input
+                type="text"
+                value={displayName}
+                onChange={(e) => setDisplayName(e.target.value)}
+                placeholder="Nome para o ranking"
+              />
+            </div>
 
-          <label>E-mail</label>
+            {errors.displayName && (
+              <small className="login-error">
+                {errors.displayName}
+              </small>
+            )}
 
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Digite seu e-mail"
-          />
+            <div className="login-input-group">
+              <span className="input-icon">✉</span>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Digite seu e-mail"
+              />
+            </div>
 
-          {errors.email && (
-            <small className="form-error">
-              {errors.email}
-            </small>
-          )}
+            {errors.email && (
+              <small className="login-error">
+                {errors.email}
+              </small>
+            )}
 
-          <label>Senha</label>
+            <div className="login-input-group">
+              <span className="input-icon">🔒</span>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Crie uma senha"
+              />
+            </div>
 
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Crie uma senha"
-          />
+            {errors.password && (
+              <small className="login-error">
+                {errors.password}
+              </small>
+            )}
 
-          {errors.password && (
-            <small className="form-error">
-              {errors.password}
-            </small>
-          )}
+            {message && (
+              <p className="login-error">
+                {message}
+              </p>
+            )}
 
-          {message && (
-            <p className="form-error">{message}</p>
-          )}
+            <button
+              type="submit"
+              className="login-button"
+              disabled={loading}
+            >
+              {loading ? 'Criando conta...' : 'Criar conta'}
+            </button>
 
-          <button
-            type="submit"
-            className="auth-button"
-            disabled={loading}
-          >
-            {loading ? 'Criando conta...' : 'Criar conta'}
-          </button>
-        </form>
+          </form>
 
-        <p className="switch-page">
-          Já tem uma conta?
-          <Link to="/login"> Login</Link>
-        </p>
+          <div className="login-or">
+            ou
+          </div>
+
+          <Link to="/login" className="register-button">
+            Já tenho uma conta
+          </Link>
+
+        </div>
       </section>
     </main>
   )

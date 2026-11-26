@@ -680,13 +680,9 @@
 
   position: relative;
 
-
-
-  width: min(52vw, 780px);
-
-  aspect-ratio: 3 / 2;
-
-
+  width: min(45vw, 520px);
+  aspect-ratio: 2 / 3;
+  max-height: 90vh;
 
   display: flex;
 
@@ -695,7 +691,6 @@
   align-items: center;
 
 }
-
 
 
 /* Imagem da placa */
@@ -734,11 +729,7 @@
 
   position: absolute;
 
-
-
   z-index: 2;
-
-
 
   top: 35%;
 
@@ -1450,11 +1441,7 @@
 
 
 
-    linear-gradient(
-
-
-
-      to bottom,
+    linear-gradient(to bottom,
 
 
 
@@ -1466,11 +1453,7 @@
 
 
 
-      #8ca96d 100%
-
-
-
-    );
+      #8ca96d 100%);
 
 
 
@@ -1678,11 +1661,7 @@
 
 
 
-    radial-gradient(
-
-
-
-      ellipse at 50% 100%,
+    radial-gradient(ellipse at 50% 100%,
 
 
 
@@ -1694,11 +1673,7 @@
 
 
 
-      transparent 75%
-
-
-
-    );
+      transparent 75%);
 
 
 
@@ -1778,11 +1753,7 @@
 
 
 
-    linear-gradient(
-
-
-
-      145deg,
+    linear-gradient(145deg,
 
 
 
@@ -1790,11 +1761,7 @@
 
 
 
-      #98633d
-
-
-
-    );
+      #98633d);
 
 
 
@@ -3710,19 +3677,11 @@
 
 
 
-    linear-gradient(
+    linear-gradient(rgba(255, 255, 255, 0.08),
 
 
 
-      rgba(255, 255, 255, 0.08),
-
-
-
-      rgba(255, 255, 255, 0.08)
-
-
-
-    ),
+      rgba(255, 255, 255, 0.08)),
 
 
 
@@ -4458,23 +4417,15 @@
 
 
 
-  background: linear-gradient(
+  background: linear-gradient(145deg,
 
 
 
-    145deg,
+      #704328,
 
 
 
-    #704328,
-
-
-
-    #98633d
-
-
-
-  );
+      #98633d);
 
 
 
@@ -5506,19 +5457,11 @@
 
 
 
-    linear-gradient(
+    linear-gradient(rgba(255, 255, 255, 0.05),
 
 
 
-      rgba(255, 255, 255, 0.05),
-
-
-
-      rgba(255, 255, 255, 0.05)
-
-
-
-    ),
+      rgba(255, 255, 255, 0.05)),
 
 
 
@@ -5586,19 +5529,11 @@
 
 
 
-    linear-gradient(
+    linear-gradient(rgba(255, 255, 255, 0.08),
 
 
 
-      rgba(255, 255, 255, 0.08),
-
-
-
-      rgba(255, 255, 255, 0.08)
-
-
-
-    ),
+      rgba(255, 255, 255, 0.08)),
 
 
 
@@ -6244,7 +6179,7 @@
 
 
 
-.garden-screen .tools-toolbar > \* {
+.garden-screen .tools-toolbar>\* {
 
   position: relative;
 
@@ -6474,19 +6409,15 @@
 
   .garden-screen .tools-toolbar {
 
-    background: linear-gradient(
+    background: linear-gradient(to right,
 
-      to right,
+        #ead4b9 0,
 
-      #ead4b9 0,
+        #ead4b9 calc(80% - 3px),
 
-      #ead4b9 calc(80% - 3px),
+        transparent calc(80% - 3px),
 
-      transparent calc(80% - 3px),
-
-      transparent 100%
-
-    );
+        transparent 100%);
 
   }
 
@@ -6771,7 +6702,7 @@
   box-sizing: border-box;
 
   /* Posicionamento vertical */
-  transform: translateY(120px);
+  transform: translateY(16px);
 }
 
 /* Cada canteiro ocupa sua própria coluna */
@@ -6820,5 +6751,102 @@
 
   .garden-screen .plot {
     width: 100%;
+  }
+}
+
+/* ================================
+   CADASTRO - GARDENIA
+================================ */
+
+.cadastro-content {
+  top: 25%;
+  height: 72%;
+  justify-content: center;
+}
+
+.cadastro-content h2 {
+  margin-bottom: 5px;
+}
+
+.cadastro-content .login-divider {
+  margin-bottom: 10px;
+}
+
+.cadastro-content form {
+  gap: 7px;
+}
+
+.cadastro-content .login-input-group {
+  height: 40px;
+  min-height: 40px;
+}
+
+.cadastro-content .input-icon {
+  font-size: 17px;
+  margin-right: 10px;
+}
+
+.cadastro-content .login-input-group input {
+  font-size: 14px;
+}
+
+.cadastro-content .login-button {
+  margin-top: 5px;
+}
+
+.cadastro-content .login-or {
+  margin: 5px 0;
+}
+
+.cadastro-content .register-button {
+  margin-top: 0;
+}
+
+.cadastro-content .login-error {
+  font-size: 11px;
+  margin: 0;
+  line-height: 1.2;
+  color: #a33b2b;
+  max-width: 100%;
+}
+
+/* Responsividade */
+
+@media (max-width: 900px) {
+  .cadastro-content {
+    top: 22%;
+    height: 76%;
+  }
+
+  .cadastro-content .login-input-group {
+    height: 35px;
+    min-height: 35px;
+  }
+
+  .cadastro-content .login-input-group input {
+    font-size: 12px;
+  }
+
+  .cadastro-content .input-icon {
+    font-size: 15px;
+  }
+}
+ @media (max-width: 768px) {
+  .login-container {
+    width: min(85vw, 60vh);
+    aspect-ratio: 2 / 3;
+    max-height: 90vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-scene {
+    padding: 10px;
+    background-position: center;
+  }
+
+  .login-container {
+    width: min(95vw, 60vh);
+    max-height: 90vh;
   }
 }
