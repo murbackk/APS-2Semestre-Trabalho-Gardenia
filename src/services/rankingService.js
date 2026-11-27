@@ -16,21 +16,35 @@ export async function submitScore(score) {
 }
 
 // Consulta as pontuações em ordem decrescente.
+
 export async function getRanking() {
-  const { data, error } = await supabase
-    .from('scores')
-    .select(`
-      user_id,
-      best_score,
-      profiles (
-        display_name
-      )
-    `)
-    .order('best_score', { ascending: false })
+  const pageSize = 1000
+  let allData = []
+  let from = 0
+  let hasMore = true
 
-  if (error) throw error
+  while (hasMore) {
+    const { data, error } = await supabase
+      .from('scores')
+      .select(`
+        user_id,
+        best_score,
+        profiles (
+          display_name
+        )
+      `)
+      .order('best_score', { ascending: false })
+      .range(from, from + pageSize - 1)
 
-  return (data || []).map((item) => {
+    if (error) throw error
+
+    allData = [...allData, ...(data || [])]
+
+    hasMore = data?.length === pageSize
+    from += pageSize
+  }
+
+  return allData.map((item) => {
     const profile = Array.isArray(item.profiles)
       ? item.profiles[0]
       : item.profiles
@@ -42,3 +56,4 @@ export async function getRanking() {
     }
   })
 }
+

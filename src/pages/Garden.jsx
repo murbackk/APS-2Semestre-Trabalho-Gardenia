@@ -12,6 +12,13 @@ import regarImg from '../assets/regar.png'
 import removerImg from '../assets/remover.png'
 import colherImg from '../assets/colher.png'
 import seedsImg from '../assets/seeds.png'
+import astromeliaImg from '../assets/alstromelia.png'
+import gerberaImg from '../assets/gerbera.png'
+import girassolImg from '../assets/girassol.png'
+import lirioImg from '../assets/lirio.png'
+import margaridaImg from '../assets/margarida.png'
+import orquideaImg from '../assets/orquidea.png'
+import rosaImg from '../assets/rosa.png'
 
 import canteiroVazioImg from '../assets/canteiro/vazio.png'
 import canteiroSementeImg from '../assets/canteiro/semente.png'
@@ -31,6 +38,15 @@ const canteiroFlowerByName = Object.fromEntries(
     imageUrl,
   ])
 )
+const CANTEIRO_FLOWERS = {
+  girassol: 'canteirogirassol',
+  gerbera: 'canteirogerbera',
+  lirio: 'canteirolirio',
+  margarida: 'canteiromargarida',
+  orquidea: 'canteiroorquidea',
+  rosa: 'canteirorosa',
+  alstromelia: 'canteiro',
+}
 
 const INITIAL_HEARTS = 300
 const INITIAL_COINS = 500
@@ -39,8 +55,71 @@ const GROWTH_STAGE_TIME = 30 * 1000
 const WATER_TO_FLOWER_TIME = 30 * 1000
 
 const INITIAL_INVENTORY = {
-  amarela: 2,
+  girassol: 2,
   rosa: 0,
+  margarida: 0,
+  orquidea: 0,
+  lirio: 0,
+  gerbera: 0,
+  alstromelia: 0,
+}
+
+const SEEDS = {
+  girassol: {
+    name: 'Girassol',
+    image: girassolImg,
+    price: 100,
+    hearts: 20,
+    coins: 100,
+  },
+
+  margarida: {
+    name: 'Margarida',
+    image: margaridaImg,
+    price: 120,
+    hearts: 25,
+    coins: 130,
+  },
+
+  rosa: {
+    name: 'Rosa',
+    image: rosaImg,
+    price: 150,
+    hearts: 30,
+    coins: 160,
+  },
+
+  lirio: {
+    name: 'Lírio',
+    image: lirioImg,
+    price: 180,
+    hearts: 35,
+    coins: 190,
+  },
+
+  gerbera: {
+    name: 'Gérbera',
+    image: gerberaImg,
+    price: 200,
+    hearts: 40,
+    coins: 220,
+  },
+
+  alstromelia: {
+    name: 'Astromélia',
+    image: astromeliaImg,
+    price: 230,
+    hearts: 45,
+    coins: 250,
+  },
+
+  orquidea: {
+    name: 'Orquídea',
+    image: orquideaImg,
+    price: 300,
+    hearts: 60,
+    coins: 300,
+  },
 }
 
 const INITIAL_PLOTS = Array.from({ length: 5 }, (_, index) => ({
@@ -48,18 +127,6 @@ const INITIAL_PLOTS = Array.from({ length: 5 }, (_, index) => ({
   plant: null,
 }))
 
-const SEEDS = {
-  amarela: {
-    name: 'Semente amarela',
-    icon: '🌻',
-    price: 100,
-  },
-  rosa: {
-    name: 'Semente rosa',
-    icon: '🌷',
-    price: 100,
-  },
-}
 
 function preparePlots(savedPlots) {
   return (savedPlots || INITIAL_PLOTS).map((plot) => {
@@ -204,7 +271,10 @@ export default function Garden() {
           setHearts(data.hearts)
           setCoins(data.coins)
           setDeadPlants(data.dead_plants ?? 0)
-          setInventory(data.inventory)
+          setInventory({
+          ...INITIAL_INVENTORY,
+          ...(data.inventory || {}),
+        })
           setPlots(preparePlots(data.plots))
           setDreamPlots(
             preparePlots(data.dream_plots || INITIAL_PLOTS)
@@ -450,20 +520,25 @@ export default function Garden() {
 
   // Comprar sementes
   function buySeed(type) {
-    if (coins < SEEDS[type].price) {
-      setMessage('Você não tem moedas suficientes! 💰')
-      return
-    }
+  const seed = SEEDS[type]
 
-    setCoins((previous) => previous - SEEDS[type].price)
-
-    setInventory((previous) => ({
-      ...previous,
-      [type]: previous[type] + 1,
-    }))
-
-    setMessage(`Você comprou ${SEEDS[type].name}! 🌱`)
+  if (coins < seed.price) {
+    setMessage('Você não tem moedas suficientes! 💰')
+    return
   }
+
+  setCoins(previous => previous - seed.price)
+
+  setInventory(previous => ({
+    ...previous,
+    [type]: (previous[type] || 0) + 1,
+  }))
+
+  setSelectedSeed(type)
+  setSelectedTool('plant')
+
+  setMessage(`${seed.name} comprada com sucesso! 🌱`)
+}
 
   // Plantar, regar, colher ou remover
   function handlePlotClick(plotId) {
@@ -564,30 +639,38 @@ export default function Garden() {
     }
 
     // COLHER
-    if (selectedTool === 'harvest') {
-      if (!plot.plant) {
-        setMessage('Não há planta para colher!')
-        return
-      }
+   // COLHER
+if (selectedTool === 'harvest') {
+  if (!plot.plant) {
+    setMessage('Não há planta para colher!')
+    return
+  }
 
-      if (plot.plant.stage !== 'grown') {
-        setMessage('Espere a planta crescer para colher!')
-        return
-      }
+  if (plot.plant.stage !== 'grown') {
+    setMessage('Espere a planta crescer para colher!')
+    return
+  }
 
-      updateActivePlots((previous) =>
-        previous.map((item) =>
-          item.id === plotId
-            ? { ...item, plant: null }
-            : item
-        )
-      )
+  const flower = SEEDS[plot.plant.type] || SEEDS.amarela
 
-      addHearts(20)
-      setCoins((previous) => previous + 100)
-      setMessage('Planta colhida! +20 ❤️ e +100 moedas 💰')
-      return
-    }
+  updateActivePlots(previous =>
+    previous.map(item =>
+      item.id === plotId
+        ? { ...item, plant: null }
+        : item
+    )
+  )
+
+  addHearts(flower.hearts)
+
+  setCoins(previous => previous + flower.coins)
+
+  setMessage(
+    `${flower.name} colhida! +${flower.hearts} ❤️ e +${flower.coins} moedas 💰`
+  )
+
+  return
+}
 
     // REMOVER
     if (selectedTool === 'remove') {
@@ -610,43 +693,33 @@ export default function Garden() {
 
   // Retorna o sprite PNG da fase atual do canteiro.
   function getPlotSprite(plant) {
-    if (!plant) return canteiroVazioImg
+  if (!plant) return canteiroVazioImg
 
-    if (plant.stage === 'grown') {
-      const flowerNames = {
-        amarela: 'girassol',
-        rosa: 'rosa',
-        margarida: 'margarida',
-        orquidea: 'orquidea',
-        lirio: 'lirio',
-        girassol: 'girassol',
-        gerbera: 'gerbera',
-        alstromelia: 'alstromelia',
-      }
+  // Quando a flor crescer, mostra o canteiro correspondente
+  if (plant.stage === 'grown') {
+    const canteiroName = CANTEIRO_FLOWERS[plant.type]
 
-      const flowerName = (
-        plant.flower || flowerNames[plant.type] || plant.type
-      ).toLowerCase()
-
-      // Até o PNG da flor ser adicionado, mantém a imagem de planta regada.
-      return canteiroFlowerByName[flowerName] || canteiroRegadoImg
-    }
-
-    if (plant.wateredAt || plant.stage === 'watered') {
-      return canteiroRegadoImg
-    }
-
-    const plantedAt = plant.plantedAt || plant.actionStartedAt || timerNow
-
-    if (
-      plant.stage === 'sprout' ||
-      timerNow - plantedAt >= GROWTH_STAGE_TIME
-    ) {
-      return canteiroCrescendoImg
-    }
-
-    return canteiroSementeImg
+    return canteiroFlowerByName[canteiroName] || canteiroRegadoImg
   }
+
+  // Planta regada
+  if (plant.wateredAt || plant.stage === 'watered') {
+    return canteiroRegadoImg
+  }
+
+  // Planta crescendo
+  const plantedAt = plant.plantedAt || plant.actionStartedAt || timerNow
+
+  if (
+    plant.stage === 'sprout' ||
+    timerNow - plantedAt >= GROWTH_STAGE_TIME
+  ) {
+    return canteiroCrescendoImg
+  }
+
+  // Semente plantada
+  return canteiroSementeImg
+}
 
   function getPlotSpriteAlt(plant) {
     if (!plant) return 'Canteiro vazio'
@@ -770,45 +843,81 @@ export default function Garden() {
       }`}
     >
       <header className="garden-header">
+  <div className="top-hud-bar">
 
-        <div className="resources">
-          <span className="resource-pill">❤️ {hearts}/{activeLimit}</span>
-          <span className="resource-pill">💰 {coins}</span>
-          <span className="resource-pill dead-plants-counter">🥀 {deadPlants}</span>
+    <div className="resources">
+      <span className="resource-pill">
+        ❤️ {hearts}/{activeLimit}
+      </span>
+
+      <span className="resource-pill">
+        💰 {coins}
+      </span>
+
+      <span className="resource-pill dead-plants-counter">
+        🥀 {deadPlants}
+      </span>
+    </div>
+
+    <button
+      className="pause-button"
+      onClick={pauseGame}
+      disabled={resetting || isPaused}
+    >
+      ⏸ Pause
+    </button>
+
+    <div className="settings-wrapper">
+      <button
+        className={`settings-button ${settingsOpen ? 'active' : ''}`}
+        onClick={() => {
+          setSettingsOpen(open => !open)
+          setGardenOpen(false)
+        }}
+        aria-label="Configurações"
+      >
+        ⚙
+      </button>
+
+      {settingsOpen && (
+        <div className="settings-menu">
+          <Link to="/perfil" onClick={() => setSettingsOpen(false)}>
+            👤 Meu perfil
+          </Link>
+
+          <Link to="/ranking" onClick={() => setSettingsOpen(false)}>
+            🏆 Ranking
+          </Link>
+
+          <button
+            onClick={() => {
+              setSettingsOpen(false)
+              handleResetProgress()
+            }}
+            disabled={resetting}
+          >
+            🔄 Reiniciar progresso
+          </button>
+
+          <Link to="/" onClick={() => setSettingsOpen(false)}>
+            🚪 Sair da conta
+          </Link>
         </div>
+      )}
+    </div>
 
-        <button
-          className="pause-button"
-          onClick={pauseGame}
-          disabled={resetting || isPaused}
-          aria-label="Pausar jogo"
-        >
-          ⏸ Pause
-        </button>
+    <button
+      className="garden-menu-button"
+      onClick={() => {
+        setGardenOpen(open => !open)
+        setSettingsOpen(false)
+      }}
+    >
+      🌳 Meus jardins
+    </button>
 
-        <button
-          className="settings-button"
-          onClick={() => {
-            setSettingsOpen((open) => !open)
-            setGardenOpen(false)
-          }}
-          aria-label="Abrir configurações"
-        >
-          ⚙
-        </button>
-
-        {settingsOpen && (
-          <div className="settings-menu">
-            <Link to="/perfil">Meu perfil</Link>
-            <Link to="/ranking">Ranking</Link>
-            <button onClick={handleResetProgress} disabled={resetting}>
-              Reiniciar progresso
-            </button>
-            <Link to="/">Sair do jogo</Link>
-          </div>
-        )}
-      </header>
-
+  </div>
+</header>
       <section className="garden-content">
         <div className="garden-top">
           
@@ -961,42 +1070,63 @@ export default function Garden() {
             </button>
           </div>
 
-          {shopOpen && (
-            <div className="shop-content">
-              <h2>Loja de sementes</h2>
+         {shopOpen && (
+  <div className="shop-content">
+    <h2>🌸 Loja de flores</h2>
 
-              <div className="seed-options">
-                <button
-                  className={selectedSeed === 'amarela' ? 'selected' : ''}
-                  onClick={() => {
-                    setSelectedSeed('amarela')
-                    setSelectedTool('plant')
-                  }}
-                >
-                  🌻 Amarela: {inventory.amarela}
-                </button>
-                <button
-                  className={selectedSeed === 'rosa' ? 'selected' : ''}
-                  onClick={() => {
-                    setSelectedSeed('rosa')
-                    setSelectedTool('plant')
-                  }}
-                >
-                  🌷 Rosa: {inventory.rosa}
-                </button>
-              </div>
+    <p className="shop-balance">
+      💰 Suas moedas: {coins}
+    </p>
 
-              <p>🌻 Semente amarela — 100 moedas</p>
-              <button onClick={() => buySeed('amarela')}>
-                Comprar amarela
-              </button>
+    <div className="flower-shop-grid">
+      {Object.entries(SEEDS).map(([type, flower]) => (
+        <div
+          className={`flower-shop-item ${
+            selectedSeed === type ? 'selected' : ''
+          }`}
+          key={type}
+        >
+          <img src={flower.image} alt={flower.name} />
 
-              <p>🌷 Semente rosa — 100 moedas</p>
-              <button onClick={() => buySeed('rosa')}>
-                Comprar rosa
-              </button>
-            </div>
-          )}
+          <strong>{flower.name}</strong>
+
+          <small>
+            Disponíveis: {inventory[type] || 0}
+          </small>
+
+          <div className="flower-rewards">
+            <span>❤️ +{flower.hearts}</span>
+            <span>💰 +{flower.coins}</span>
+          </div>
+
+          <span className="flower-price">
+            🌱 {flower.price} moedas
+          </span>
+
+          <button
+            onClick={() => buySeed(type)}
+            disabled={coins < flower.price}
+          >
+            Comprar
+          </button>
+
+          <button
+            className="select-flower-button"
+            onClick={() => {
+              setSelectedSeed(type)
+              setSelectedTool('plant')
+              setShopOpen(false)
+              setMessage(`${flower.name} selecionada para plantar!`)
+            }}
+            disabled={(inventory[type] || 0) <= 0}
+          >
+            Selecionar
+          </button>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
         </section>
       </section>
 
